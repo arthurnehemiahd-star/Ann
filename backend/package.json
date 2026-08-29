@@ -1,0 +1,32 @@
+{
+  "name": "ann-whatsapp-bot-backend",
+  "version": "1.0.0",
+  "description": "ANN WhatsApp bot backend with AI, SQLite database, and games",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "build": "echo \"No build step required for Render\""
+  },
+  "keywords": [
+    "whatsapp",
+    "bot",
+    "ai",
+    "database",
+    "games",
+    "twilio"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "nodemailer": "^7.0.0",
+    "openai": "^4.41.1",
+    "pg": "^8.12.0",
+    "sqlite3": "^5.1.7",
+    "twilio": "^5.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}

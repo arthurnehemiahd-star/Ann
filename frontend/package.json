@@ -1,0 +1,9 @@
+{
+  "name": "ann-dashboard-frontend",
+  "version": "1.0.0",
+  "description": "ANN WhatsApp Bot Dashboard",
+  "private": true,
+  "scripts": {
+    "install": "echo 'Frontend is static, no install needed'"
+  }
+}

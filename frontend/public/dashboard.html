@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ANN Dashboard</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background: #0f172a;
+        color: #e2e8f0;
+      }
+      .container {
+        max-width: 960px;
+        margin: 40px auto;
+        padding: 24px;
+      }
+      .card {
+        background: #111827;
+        border: 1px solid #334155;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+      h1, h2 {
+        margin-top: 0;
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 16px;
+      }
+      .stat {
+        background: #1e293b;
+        padding: 16px;
+        border-radius: 10px;
+      }
+      ul {
+        padding-left: 20px;
+      }
+      .login-box {
+        max-width: 420px;
+        margin: 60px auto;
+      }
+      input, button {
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: 10px;
+        padding: 12px;
+        border-radius: 8px;
+        border: 1px solid #475569;
+      }
+      button {
+        background: #2563eb;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      .hidden {
+        display: none;
+      }
+      .small {
+        font-size: 12px;
+        opacity: 0.8;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="login-view" class="container login-box">
+      <div class="card">
+        <h1 id="auth-title">Private Access</h1>
+        <p id="auth-message">Enter the dashboard password.</p>
+        <input id="password-input" type="password" placeholder="Password" />
+        <button id="login-button">Continue</button>
+
+        <div id="recovery-box" class="card" style="margin-top: 16px; display: none;">
+          <h2>Forgot password?</h2>
+          <input id="recovery-email" type="email" placeholder="Your Gmail address" />
+          <button id="send-code-button">Send verification code</button>
+          <input id="recovery-code" type="text" placeholder="Verification code from email" style="display: none; margin-top: 10px;" />
+          <input id="new-password" type="password" placeholder="New password" style="display: none; margin-top: 10px;" />
+          <button id="verify-code-button" style="display: none;">Verify and reset password</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="first-time-view" class="container login-box hidden">
+      <div class="card">
+        <h1>First Time Setup</h1>
+        <p>Set your dashboard password.</p>
+        <input id="setup-password" type="password" placeholder="New password" />
+        <button id="setup-button">Set Password</button>
+      </div>
+    </div>
+
+    <div id="dashboard-view" class="container hidden">
+      <div class="card">
+        <h1>ANN Dashboard</h1>
+        <p>AI WhatsApp bot with memory and games.</p>
+        <button id="change-password-button">Change password</button>
+        <button id="logout-button" style="margin-top: 10px;">Logout</button>
+      </div>
+
+      <div class="card">
+        <h2>Statistics</h2>
+        <div class="stats">
+          <div class="stat">
+            <div>Messages</div>
+            <div style="font-size: 24px; margin-top: 10px;" id="message-count">0</div>
+          </div>
+          <div class="stat">
+            <div>Memory</div>
+            <div style="font-size: 24px; margin-top: 10px;" id="memory-count">0</div>
+          </div>
+          <div class="stat">
+            <div>Sessions</div>
+            <div style="font-size: 24px; margin-top: 10px;" id="session-count">0</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Recent Messages</h2>
+        <ul id="recent-messages"></ul>
+      </div>
+
+      <div class="card">
+        <h2>Saved Memory</h2>
+        <ul id="memory-list"></ul>
+      </div>
+    </div>
+
+    <div id="change-password-view" class="container login-box hidden">
+      <div class="card">
+        <h2>Change Password</h2>
+        <input id="current-password" type="password" placeholder="Current password" />
+        <input id="change-new-password" type="password" placeholder="New password" />
+        <button id="confirm-change-button">Update password</button>
+        <button id="cancel-change-button" style="background: #64748b; margin-top: 10px;">Cancel</button>
+      </div>
+    </div>
+
+    <script>
+      const API_BASE_URL = window.location.origin.includes('localhost') || window.location.origin.includes('127.0.0.1')
+        ? 'http://localhost:3000'
+        : (window.__API_BASE_URL__ || window.location.origin);
+
+      const API_HEADERS = {
+        'Content-Type': 'application/json',
+      };
+
+      async function checkAuthStatus() {
+        try {
+          const res = await fetch(`${API_BASE_URL}/api/auth-status`, { credentials: 'include' });
+          const data = await res.json();
+          return data;
+        } catch (error) {
+          console.error('Auth status check failed:', error);
+          return { configured: false, needsSetup: true };
+        }
+      }
+
+      async function loadDashboard(password) {
+        const authHeader = 'Basic ' + btoa(`:${password}`);
+        try {
+          const res = await fetch(`${API_BASE_URL}/api/dashboard`, {
+            headers: { ...API_HEADERS, Authorization: authHeader },
+            credentials: 'include',
+          });
+
+          if (!res.ok) throw new Error('Unauthorized');
+
+          const data = await res.json();
+          document.getElementById('message-count').textContent = data.messageCount || 0;
+          document.getElementById('memory-count').textContent = data.memoryCount || 0;
+          document.getElementById('session-count').textContent = data.sessionCount || 0;
+
+          const msgList = document.getElementById('recent-messages');
+          msgList.innerHTML = (data.recentMessages || [])
+            .map((m) => `<li><strong>${m.sender}</strong>: ${m.text}</li>`)
+            .join('');
+
+          const memList = document.getElementById('memory-list');
+          memList.innerHTML = (data.memory || [])
+            .map((m) => `<li><strong>${m.key}</strong>: ${m.value}</li>`)
+            .join('');
+
+          localStorage.setItem('ann_password', password);
+          showDashboard();
+        } catch (error) {
+          alert('Access denied or error loading dashboard');
+          console.error(error);
+        }
+      }
+
+      function showDashboard() {
+        document.getElementById('login-view').classList.add('hidden');
+        document.getElementById('first-time-view').classList.add('hidden');
+        document.getElementById('change-password-view').classList.add('hidden');
+        document.getElementById('dashboard-view').classList.remove('hidden');
+      }
+
+      function showLogin() {
+        document.getElementById('login-view').classList.remove('hidden');
+        document.getElementById('first-time-view').classList.add('hidden');
+        document.getElementById('dashboard-view').classList.add('hidden');
+        document.getElementById('change-password-view').classList.add('hidden');
+      }
+
+      function showFirstTimeSetup() {
+        document.getElementById('login-view').classList.add('hidden');
+        document.getElementById('first-time-view').classList.remove('hidden');
+        document.getElementById('dashboard-view').classList.add('hidden');
+        document.getElementById('change-password-view').classList.add('hidden');
+      }
+
+      document.getElementById('setup-button').addEventListener('click', async () => {
+        const password = document.getElementById('setup-password').value;
+        if (!password) return alert('Password required');
+
+        try {
+          const res = await fetch(`${API_BASE_URL}/api/setup-password`, {
+            method: 'POST',
+            headers: API_HEADERS,
+            body: JSON.stringify({ password }),
+            credentials: 'include',
+          });
+          if (res.ok) {
+            loadDashboard(password);
+          } else {
+            alert('Setup failed');
+          }
+        } catch (error) {
+          console.error(error);
+          alert('Setup error');
+        }
+      });
+
+      document.getElementById('login-button').addEventListener('click', async () => {
+        const password = document.getElementById('password-input').value;
+        if (!password) return alert('Password required');
+        loadDashboard(password);
+      });
+
+      document.getElementById('send-code-button').addEventListener('click', async () => {
+        const email = document.getElementById('recovery-email').value;
+        if (!email) return alert('Email required');
+
+        try {
+          const res = await fetch(`${API_BASE_URL}/api/request-reset`, {
+            method: 'POST',
+            headers: API_HEADERS,
+            body: JSON.stringify({ email }),
+            credentials: 'include',
+          });
+          if (res.ok) {
+            alert('Verification code sent to your Gmail');
+            document.getElementById('recovery-code').style.display = 'block';
+            document.getElementById('new-password').style.display = 'block';
+            document.getElementById('verify-code-button').style.display = 'block';
+          } else {
+            alert('Error sending code');
+          }
+        } catch (error) {
+          console.error(error);
+          alert('Error');
+        }
+      });
+
+      document.getElementById('verify-code-button').addEventListener('click', async () => {
+        const email = document.getElementById('recovery-email').value;
+        const code = document.getElementById('recovery-code').value;
+        const newPassword = document.getElementById('new-password').value;
+
+        if (!email || !code || !newPassword) return alert('All fields required');
+
+        try {
+          const res = await fetch(`${API_BASE_URL}/api/reset-password`, {
+            method: 'POST',
+            headers: API_HEADERS,
+            body: JSON.stringify({ email, code, newPassword }),
+            credentials: 'include',
+          });
+          if (res.ok) {
+            alert('Password reset successful');
+            loadDashboard(newPassword);
+          } else {
+            alert('Invalid code or error');
+          }
+        } catch (error) {
+          console.error(error);
+          alert('Error resetting password');
+        }
+      });
+
+      document.getElementById('change-password-button').addEventListener('click', () => {
+        document.getElementById('dashboard-view').classList.add('hidden');
+        document.getElementById('change-password-view').classList.remove('hidden');
+      });
+
+      document.getElementById('confirm-change-button').addEventListener('click', async () => {
+        const current = document.getElementById('current-password').value;
+        const newPass = document.getElementById('change-new-password').value;
+        if (!current || !newPass) return alert('Both fields required');
+
+        const authHeader = 'Basic ' + btoa(`:${current}`);
+        try {
+          const res = await fetch(`${API_BASE_URL}/api/change-password`, {
+            method: 'POST',
+            headers: { ...API_HEADERS, Authorization: authHeader },
+            body: JSON.stringify({ currentPassword: current, newPassword: newPass }),
+            credentials: 'include',
+          });
+          if (res.ok) {
+            alert('Password changed');
+            localStorage.setItem('ann_password', newPass);
+            loadDashboard(newPass);
+          } else {
+            alert('Wrong current password');
+          }
+        } catch (error) {
+          console.error(error);
+          alert('Error changing password');
+        }
+      });
+
+      document.getElementById('cancel-change-button').addEventListener('click', showDashboard);
+      document.getElementById('logout-button').addEventListener('click', () => {
+        localStorage.removeItem('ann_password');
+        document.getElementById('recovery-box').style.display = 'none';
+        document.getElementById('password-input').value = '';
+        showLogin();
+      });
+
+      document.getElementById('recovery-box').addEventListener('click', (e) => {
+        if (e.target === document.getElementById('recovery-box')) {
+          document.getElementById('recovery-box').style.display = 'none';
+        }
+      });
+
+      document.querySelector('.card').addEventListener('click', (e) => {
+        if (e.target.textContent === 'Forgot password?') {
+          document.getElementById('recovery-box').style.display = 'block';
+        }
+      });
+
+      async function init() {
+        const status = await checkAuthStatus();
+        const savedPassword = localStorage.getItem('ann_password');
+
+        if (!status.configured) {
+          showFirstTimeSetup();
+        } else if (savedPassword) {
+          loadDashboard(savedPassword);
+        } else {
+          const recoverySection = document.getElementById('recovery-box');
+          recoverySection.style.display = 'none';
+          document.querySelector('.card').insertAdjacentHTML(
+            'beforeend',
+            '<button style="margin-top: 10px; background: #64748b;" onclick="document.getElementById(\'recovery-box\').style.display=\'block\'">Forgot password?</button>'
+          );
+          showLogin();
+        }
+      }
+
+      init();
+    </script>
+  </body>
+</html>
