@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ANN Dashboard</title>
+    <title>A Dashboard</title>
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -152,11 +152,7 @@
     'Content-Type': 'application/json',
   };
 
- const API_HEADERS = {
-        'Content-Type': 'application/json',
-      };
-
-      async function checkAuthStatus() {
+async function checkAuthStatus() {
         try {
           const res = await fetch(`${API_BASE_URL}/api/auth-status`, { credentials: 'include' });
           const data = await res.json();
