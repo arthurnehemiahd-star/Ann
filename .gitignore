@@ -1,0 +1,8 @@
+node_modules/
+.env
+npm-debug.log*
+ann.db
+**/ann.db
+__pycache__/
+*.pyc
+
