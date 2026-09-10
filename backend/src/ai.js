@@ -1,37 +1,55 @@
-const OpenAI = require('openai');
+const OpenAI = require("openai");
 
-class AnnAI {
-  constructor(apiKey, model = 'gpt-4o-mini') {
+class MiahAI {
+  constructor(apiKey, model = process.env.OPENAI_MODEL || "gpt-5") {
     this.model = model;
     this.client = apiKey ? new OpenAI({ apiKey }) : null;
   }
 
   async respond(message, context = []) {
     if (!this.client) {
-      return null;
+      return "Miah's AI service is not configured yet.";
     }
 
-    const messages = [
-      {
-        role: 'system',
-        content: `You are ANN, an AI assistant. Keep responses short, friendly, and helpful. You can manage chats, tools, games, and memory.`,
-      },
-      ...context.map((entry) => ({
-        role: 'user',
-        content: entry,
-      })),
-      { role: 'user', content: message },
-    ];
+    const conversation = context.map((entry) => ({
+      role: entry.role,
+      content: entry.content,
+    }));
 
-    const response = await this.client.chat.completions.create({
-      model: this.model,
-      messages,
-      temperature: 0.7,
-      max_tokens: 250,
+    conversation.push({
+      role: "user",
+      content: message,
     });
 
-    return response.choices?.[0]?.message?.content?.trim() || null;
+    const response = await this.client.responses.create({
+      model: this.model,
+
+      instructions: `
+You are Miah, a personal AI assistant.
+
+Your personality:
+- Friendly and natural.
+- Helpful and intelligent.
+- Conversational rather than robotic.
+- Understand the context of previous messages.
+- Answer follow-up questions naturally.
+- Be honest when you do not know something.
+- Adapt your response length to the user's question.
+- Remember useful information the user explicitly asks you to remember.
+- You were built by the user.
+- Never claim to be ChatGPT.
+- Never pretend to be another AI assistant.
+      `,
+
+      input: conversation,
+      max_output_tokens: 800,
+    });
+
+    return (
+      response.output_text?.trim() ||
+      "Sorry, I couldn't generate a response right now."
+    );
   }
 }
 
-module.exports = { AnnAI };
+module.exports = { MiahAI };
