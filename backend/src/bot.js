@@ -1,5 +1,5 @@
-const { MiahAI } = require("./ai");
-const { AnnGame } = require("./game");
+const { MiahAI } = require('./ai');
+const { AnnGame } = require('./game');
 
 class MiahBot {
   constructor({ db, ai, game }) {
@@ -8,49 +8,212 @@ class MiahBot {
     this.ai =
       ai ||
       new MiahAI(
-        process.env.OPENAI_API_KEY,
-        process.env.OPENAI_MODEL || "gpt-5"
+        process.env.HF_TOKEN,
+        process.env.HF_MODEL || 'openai/gpt-oss-20b:groq'
       );
 
     this.game = game || new AnnGame(db);
   }
 
   async getConversation(sender, limit = 20) {
-    if (!this.db || typeof this.db.getRecentMessages !== "function") {
+    if (
+      !this.db ||
+      typeof this.db.getConversation !== 'function'
+    ) {
       return [];
     }
 
-    const messages = await this.db.getRecentMessages(limit * 2);
+    const messages =
+      await this.db.getConversation(sender, limit);
 
     return messages
-      .filter((entry) => entry.sender === sender)
-      .slice(-limit)
-      .map((entry) => ({
-        role: entry.role || "user",
-        content: entry.text,
-      }));
+      .map((message) => ({
+        role:
+          message.role === 'assistant'
+            ? 'assistant'
+            : 'user',
+
+        content: String(message.text || ''),
+      }))
+      .filter((message) => message.content);
   }
 
   async handleIncomingMessage(sender, message) {
-    const text = String(message || "").trim();
+    const text = String(message || '').trim();
 
     if (!text) {
       return "I didn't receive a message.";
     }
 
-    const conversation = await this.getConversation(sender);
+    const userId = String(sender || 'web-user');
 
-    const reply = await this.ai.respond(text, conversation);
+    const lower = text.toLowerCase();
 
-    if (this.db && typeof this.db.saveMessage === "function") {
-      await this.db.saveMessage(sender, text);
+    // ----------------------------
+    // Game
+    // ----------------------------
 
-      if (reply) {
-        await this.db.saveMessage(sender, reply);
+    if (
+      lower === 'play' ||
+      lower.includes('start a game')
+    ) {
+      const reply =
+        await this.game.startGame(userId);
+
+      await this.db.saveMessage(
+        userId,
+        text,
+        'user'
+      );
+
+      await this.db.saveMessage(
+        userId,
+        reply,
+        'assistant'
+      );
+
+      return reply;
+    }
+
+    if (/^\d+$/.test(text)) {
+      const reply =
+        await this.game.handleGuess(
+          userId,
+          text
+        );
+
+      await this.db.saveMessage(
+        userId,
+        text,
+        'user'
+      );
+
+      await this.db.saveMessage(
+        userId,
+        reply,
+        'assistant'
+      );
+
+      return reply;
+    }
+
+    // ----------------------------
+    // Time
+    // ----------------------------
+
+    if (
+      lower === 'time' ||
+      lower.includes('what time')
+    ) {
+      const reply =
+        `The current time is ${new Date().toLocaleTimeString()}.`;
+
+      await this.db.saveMessage(
+        userId,
+        text,
+        'user'
+      );
+
+      await this.db.saveMessage(
+        userId,
+        reply,
+        'assistant'
+      );
+
+      return reply;
+    }
+
+    // ----------------------------
+    // Memory
+    // ----------------------------
+
+    if (lower.startsWith('remember ')) {
+      const note =
+        text.slice('remember '.length).trim();
+
+      if (note) {
+        await this.db.setMemory(
+          `user:${userId}:last_note`,
+          note
+        );
+
+        const reply =
+          `I'll remember that: ${note}`;
+
+        await this.db.saveMessage(
+          userId,
+          text,
+          'user'
+        );
+
+        await this.db.saveMessage(
+          userId,
+          reply,
+          'assistant'
+        );
+
+        return reply;
       }
     }
 
-    return reply || "Miah is ready to chat.";
+    if (
+      lower === 'what do you remember' ||
+      lower === 'show my memory' ||
+      lower === 'what do you remember about me'
+    ) {
+      const saved =
+        await this.db.getMemory(
+          `user:${userId}:last_note`
+        );
+
+      const reply = saved
+        ? `I remember: ${saved}`
+        : "I don't have a saved note for you yet.";
+
+      await this.db.saveMessage(
+        userId,
+        text,
+        'user'
+      );
+
+      await this.db.saveMessage(
+        userId,
+        reply,
+        'assistant'
+      );
+
+      return reply;
+    }
+
+    // ----------------------------
+    // Normal AI conversation
+    // ----------------------------
+
+    const context =
+      await this.getConversation(
+        userId,
+        20
+      );
+
+    const reply =
+      await this.ai.respond(
+        text,
+        context
+      );
+
+    await this.db.saveMessage(
+      userId,
+      text,
+      'user'
+    );
+
+    await this.db.saveMessage(
+      userId,
+      reply,
+      'assistant'
+    );
+
+    return reply;
   }
 }
 
