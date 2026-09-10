@@ -2,34 +2,50 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>Miah</title>
 
   <style>
+    :root {
+      --bg: #212121;
+      --sidebar: #171717;
+      --panel: #2f2f2f;
+      --panel-soft: #2a2a2a;
+      --border: #3a3a3a;
+      --text: #ececec;
+      --muted: #a0a0a0;
+      --white: #ffffff;
+      --danger: #ef4444;
+    }
+
     * {
       box-sizing: border-box;
     }
 
     html,
     body {
-      margin: 0;
-      padding: 0;
       width: 100%;
       height: 100%;
+      margin: 0;
     }
 
     body {
       font-family:
         Inter,
+        ui-sans-serif,
         system-ui,
         -apple-system,
         BlinkMacSystemFont,
         "Segoe UI",
         sans-serif;
 
-      background: #0b1020;
-      color: #e5e7eb;
+      background: var(--bg);
+      color: var(--text);
     }
 
     button,
@@ -37,201 +53,338 @@
       font: inherit;
     }
 
+    button {
+      cursor: pointer;
+    }
+
     .hidden {
       display: none !important;
     }
 
-    /* -----------------------------------------
+    /* ============================================
        AUTH
-    ----------------------------------------- */
+    ============================================ */
 
     .auth-screen {
       min-height: 100vh;
+
       display: flex;
       align-items: center;
       justify-content: center;
+
       padding: 24px;
     }
 
     .auth-card {
       width: 100%;
       max-width: 420px;
-      background: #111827;
-      border: 1px solid #25304a;
+
+      padding: 32px;
+
+      background: var(--sidebar);
+      border: 1px solid var(--border);
       border-radius: 18px;
-      padding: 30px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
     }
 
-    .brand {
-      text-align: center;
-      margin-bottom: 26px;
-    }
-
-    .brand h1 {
-      margin: 0;
-      font-size: 38px;
-      letter-spacing: -1px;
-    }
-
-    .brand p {
-      margin: 8px 0 0;
-      color: #9ca3af;
-    }
-
-    .auth-card h2 {
-      margin-top: 0;
-    }
-
-    .input {
-      width: 100%;
-      border: 1px solid #374151;
-      background: #0f172a;
-      color: #fff;
-      padding: 13px 14px;
-      border-radius: 10px;
-      outline: none;
-      margin-top: 10px;
-    }
-
-    .input:focus {
-      border-color: #6b7280;
-    }
-
-    .primary-button {
-      width: 100%;
-      margin-top: 12px;
-      border: none;
-      border-radius: 10px;
-      padding: 13px;
-      cursor: pointer;
-      background: #2563eb;
-      color: white;
-      font-weight: 600;
-    }
-
-    .secondary-button {
-      width: 100%;
-      margin-top: 10px;
-      border: 1px solid #374151;
-      border-radius: 10px;
-      padding: 13px;
-      cursor: pointer;
-      background: transparent;
-      color: #e5e7eb;
-    }
-
-    .auth-message {
-      min-height: 22px;
-      margin-top: 12px;
-      color: #fca5a5;
-      font-size: 14px;
-    }
-
-    /* -----------------------------------------
-       CHAT APP
-    ----------------------------------------- */
-
-    .app {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .topbar {
-      height: 64px;
-      flex-shrink: 0;
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      padding: 0 18px;
-
-      background: #111827;
-      border-bottom: 1px solid #25304a;
-    }
-
-    .topbar-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .miah-logo {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
+    .auth-logo {
+      width: 56px;
+      height: 56px;
 
       display: flex;
       align-items: center;
       justify-content: center;
 
-      background: #2563eb;
-      color: white;
+      margin: 0 auto 18px;
+
+      background: white;
+      color: #171717;
+
+      border-radius: 16px;
+
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .auth-card h1 {
+      margin: 0;
+      text-align: center;
+      font-size: 30px;
+    }
+
+    .auth-subtitle {
+      margin: 8px 0 28px;
+
+      text-align: center;
+
+      color: var(--muted);
+    }
+
+    .auth-card h2 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .auth-input {
+      width: 100%;
+
+      padding: 13px 14px;
+
+      margin-top: 10px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 10px;
+
+      outline: none;
+
+      background: #212121;
+      color: var(--text);
+    }
+
+    .auth-input:focus {
+      border-color: #6b6b6b;
+    }
+
+    .primary-btn {
+      width: 100%;
+
+      margin-top: 12px;
+
+      padding: 13px;
+
+      border: 0;
+      border-radius: 10px;
+
+      background: var(--white);
+      color: #171717;
+
       font-weight: 700;
     }
 
-    .topbar-title {
-      font-weight: 700;
-      font-size: 17px;
-    }
+    .secondary-btn {
+      width: 100%;
 
-    .topbar-subtitle {
-      font-size: 12px;
-      color: #9ca3af;
-    }
+      margin-top: 10px;
 
-    .logout-button {
-      border: 1px solid #374151;
+      padding: 13px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 10px;
+
       background: transparent;
-      color: #d1d5db;
-      border-radius: 9px;
-      padding: 8px 12px;
-      cursor: pointer;
+      color: var(--text);
     }
 
-    .chat-area {
-      flex: 1;
-      min-height: 0;
+    .auth-message {
+      min-height: 22px;
+
+      margin-top: 12px;
+
+      font-size: 14px;
+
+      color: #fca5a5;
+    }
+
+    /* ============================================
+       MAIN APP
+    ============================================ */
+
+    .app {
+      width: 100%;
+      height: 100vh;
+
+      display: flex;
+
+      overflow: hidden;
+    }
+
+    /* ============================================
+       SIDEBAR
+    ============================================ */
+
+    .sidebar {
+      width: 260px;
+      flex-shrink: 0;
 
       display: flex;
       flex-direction: column;
+
+      background: var(--sidebar);
+
+      border-right:
+        1px solid var(--border);
+    }
+
+    .sidebar-top {
+      padding: 12px;
+    }
+
+    .new-chat-btn {
+      width: 100%;
+
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      padding: 11px 12px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 10px;
+
+      background: transparent;
+      color: var(--text);
+
+      text-align: left;
+    }
+
+    .new-chat-btn:hover {
+      background: #222222;
+    }
+
+    .sidebar-label {
+      padding: 18px 14px 8px;
+
+      color: #777;
+
+      font-size: 11px;
+      font-weight: 700;
+
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .sidebar-chat {
+      margin: 0 8px;
+
+      padding: 10px 12px;
+
+      border-radius: 8px;
+
+      color: var(--text);
+
+      font-size: 14px;
+    }
+
+    .sidebar-chat.active {
+      background: #2f2f2f;
+    }
+
+    .sidebar-bottom {
+      margin-top: auto;
+
+      padding: 10px;
+
+      border-top:
+        1px solid var(--border);
+    }
+
+    .sidebar-user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      padding: 9px 8px;
+
+      border-radius: 10px;
+    }
+
+    .avatar {
+      width: 32px;
+      height: 32px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 8px;
+
+      background: white;
+      color: #171717;
+
+      font-weight: 800;
+    }
+
+    .sidebar-user-name {
+      flex: 1;
+
+      font-size: 14px;
+    }
+
+    .icon-btn {
+      width: 34px;
+      height: 34px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border: 0;
+      border-radius: 8px;
+
+      background: transparent;
+      color: var(--muted);
+    }
+
+    .icon-btn:hover {
+      background: #2a2a2a;
+      color: var(--text);
+    }
+
+    /* ============================================
+       CHAT AREA
+    ============================================ */
+
+    .chat {
+      min-width: 0;
+      flex: 1;
+
+      display: flex;
+      flex-direction: column;
+
+      background: var(--bg);
+    }
+
+    .chat-header {
+      height: 58px;
+      flex-shrink: 0;
+
+      display: flex;
+      align-items: center;
+
+      padding: 0 18px;
+
+      border-bottom:
+        1px solid var(--border);
+
+      background: rgba(33, 33, 33, .92);
+    }
+
+    .chat-header-title {
+      font-size: 16px;
+      font-weight: 700;
     }
 
     .messages {
       flex: 1;
+
       overflow-y: auto;
 
-      padding: 24px 18px;
+      scroll-behavior: smooth;
 
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .welcome {
-      max-width: 760px;
-      width: 100%;
-      margin: auto;
-      text-align: center;
-      padding: 20px;
-    }
-
-    .welcome h1 {
-      margin-bottom: 8px;
-      font-size: 32px;
-    }
-
-    .welcome p {
-      margin: 0;
-      color: #9ca3af;
-      line-height: 1.6;
+      padding: 24px 0 130px;
     }
 
     .message-row {
       width: 100%;
+
       display: flex;
+
+      padding: 7px 20px;
     }
 
     .message-row.user {
@@ -242,136 +395,362 @@
       justify-content: flex-start;
     }
 
-    .message-bubble {
-      max-width: min(760px, 85%);
-      padding: 12px 15px;
-      border-radius: 15px;
-      white-space: pre-wrap;
-      line-height: 1.55;
+    .message-inner {
+      width: min(820px, 100%);
+
+      display: flex;
+
+      gap: 12px;
+
+      align-items: flex-start;
     }
 
-    .message-row.user .message-bubble {
-      background: #2563eb;
+    .message-row.user .message-inner {
+      width: auto;
+      max-width: min(820px, 85%);
+    }
+
+    .message-avatar {
+      width: 32px;
+      height: 32px;
+
+      flex-shrink: 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 8px;
+
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .message-row.assistant .message-avatar {
+      background: white;
+      color: #171717;
+    }
+
+    .message-row.user .message-avatar {
+      order: 2;
+
+      background: #4b5563;
       color: white;
-      border-bottom-right-radius: 4px;
     }
 
-    .message-row.assistant .message-bubble {
-      background: #172033;
-      border: 1px solid #26324a;
-      border-bottom-left-radius: 4px;
+    .message-content {
+      min-width: 0;
+
+      padding-top: 5px;
+
+      line-height: 1.65;
+
+      word-wrap: break-word;
+      overflow-wrap: anywhere;
     }
 
     .message-name {
-      display: block;
-      font-size: 11px;
-      margin-bottom: 5px;
-      opacity: 0.7;
+      margin-bottom: 4px;
+
+      font-size: 12px;
+      font-weight: 700;
     }
 
-    .typing {
-      opacity: 0.7;
-      font-style: italic;
+    .message-text {
+      white-space: pre-wrap;
     }
 
-    .composer-wrap {
-      padding: 14px 18px 18px;
-      border-top: 1px solid #25304a;
-      background: #0f172a;
+    .user-bubble {
+      padding: 10px 14px;
+
+      border-radius: 18px;
+
+      background: #2f2f2f;
+    }
+
+    /* ============================================
+       WELCOME
+    ============================================ */
+
+    .welcome {
+      min-height: 65vh;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 40px 20px;
+    }
+
+    .welcome-inner {
+      width: 100%;
+      max-width: 760px;
+
+      text-align: center;
+    }
+
+    .welcome-logo {
+      width: 64px;
+      height: 64px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      margin: 0 auto 22px;
+
+      background: white;
+      color: #171717;
+
+      border-radius: 18px;
+
+      font-size: 28px;
+      font-weight: 800;
+    }
+
+    .welcome h1 {
+      margin: 0 0 10px;
+
+      font-size: 34px;
+      letter-spacing: -.03em;
+    }
+
+    .welcome p {
+      margin: 0;
+
+      color: var(--muted);
+
+      line-height: 1.6;
+    }
+
+    /* ============================================
+       COMPOSER
+    ============================================ */
+
+    .composer-area {
+      position: fixed;
+
+      left: 260px;
+      right: 0;
+      bottom: 0;
+
+      z-index: 10;
+
+      padding:
+        12px 20px 18px;
+
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(33, 33, 33, 0),
+          var(--bg) 28%
+        );
     }
 
     .composer {
-      max-width: 900px;
+      width: min(820px, 100%);
+
       margin: 0 auto;
 
       display: flex;
+      align-items: flex-end;
+
       gap: 10px;
+
+      padding: 10px;
+
+      border:
+        1px solid var(--border);
+
+      border-radius: 18px;
+
+      background: #2f2f2f;
+
+      box-shadow:
+        0 8px 30px rgba(0, 0, 0, .28);
     }
 
-    .composer input {
+    .message-input {
       flex: 1;
-      border: 1px solid #374151;
-      background: #111827;
-      color: white;
-      padding: 14px 16px;
-      border-radius: 13px;
-      outline: none;
+
+      min-height: 44px;
+      max-height: 160px;
+
+      resize: none;
+
+      border: 0;
+      outline: 0;
+
+      background: transparent;
+
+      color: var(--text);
+
+      padding:
+        11px 8px;
+
+      line-height: 1.5;
     }
 
-    .composer input:focus {
-      border-color: #64748b;
+    .message-input::placeholder {
+      color: #8a8a8a;
     }
 
-    .send-button {
-      width: 100px;
-      border: none;
-      border-radius: 13px;
-      background: #2563eb;
-      color: white;
-      font-weight: 600;
-      cursor: pointer;
+    .send-btn {
+      width: 40px;
+      height: 40px;
+
+      flex-shrink: 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border: 0;
+      border-radius: 12px;
+
+      background: white;
+      color: #171717;
+
+      font-size: 17px;
+      font-weight: 800;
     }
 
-    .send-button:disabled {
-      opacity: 0.5;
+    .send-btn:disabled {
+      opacity: .4;
       cursor: not-allowed;
     }
 
-    .footer-note {
-      max-width: 900px;
-      margin: 8px auto 0;
-      font-size: 11px;
+    .composer-note {
+      margin-top: 7px;
+
       text-align: center;
-      color: #6b7280;
+
+      color: #707070;
+
+      font-size: 11px;
     }
 
-    /* -----------------------------------------
+    /* ============================================
+       TYPING
+    ============================================ */
+
+    .typing-dots {
+      display: inline-flex;
+      gap: 4px;
+
+      padding-top: 5px;
+    }
+
+    .typing-dots span {
+      width: 6px;
+      height: 6px;
+
+      border-radius: 50%;
+
+      background: #a0a0a0;
+
+      animation:
+        typing 1.2s infinite ease-in-out;
+    }
+
+    .typing-dots span:nth-child(2) {
+      animation-delay: .15s;
+    }
+
+    .typing-dots span:nth-child(3) {
+      animation-delay: .3s;
+    }
+
+    @keyframes typing {
+      0%,
+      60%,
+      100% {
+        transform: translateY(0);
+        opacity: .45;
+      }
+
+      30% {
+        transform: translateY(-4px);
+        opacity: 1;
+      }
+    }
+
+    /* ============================================
        SETTINGS
-    ----------------------------------------- */
+    ============================================ */
 
     .settings-panel {
       position: fixed;
-      top: 76px;
-      right: 16px;
 
-      width: 320px;
+      left: 270px;
+      bottom: 70px;
 
-      padding: 18px;
+      z-index: 50;
+
+      width: 290px;
+
+      padding: 16px;
+
+      border:
+        1px solid var(--border);
 
       border-radius: 14px;
-      border: 1px solid #25304a;
 
-      background: #111827;
+      background: #171717;
 
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+      box-shadow:
+        0 20px 60px rgba(0,0,0,.45);
     }
 
     .settings-panel h3 {
-      margin-top: 0;
+      margin: 0 0 12px;
     }
 
-    .small-button {
+    .settings-button {
       width: 100%;
-      margin-top: 8px;
-      border: 1px solid #374151;
-      background: transparent;
-      color: #e5e7eb;
+
       padding: 10px;
+
+      margin-top: 8px;
+
+      border:
+        1px solid var(--border);
+
       border-radius: 9px;
-      cursor: pointer;
+
+      background: transparent;
+
+      color: var(--text);
     }
 
-    @media (max-width: 600px) {
-      .message-bubble {
-        max-width: 92%;
-      }
+    /* ============================================
+       MOBILE
+    ============================================ */
 
-      .send-button {
-        width: 74px;
-      }
-
-      .topbar-subtitle {
+    @media (max-width: 760px) {
+      .sidebar {
         display: none;
+      }
+
+      .composer-area {
+        left: 0;
+
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+
+      .message-row {
+        padding-left: 12px;
+        padding-right: 12px;
+      }
+
+      .message-row.user .message-inner {
+        max-width: 90%;
+      }
+
+      .settings-panel {
+        left: 12px;
+        bottom: 70px;
       }
     }
   </style>
@@ -379,36 +758,38 @@
 
 <body>
 
-  <!-- =========================================
-       FIRST TIME SETUP
-  ========================================== -->
+  <!-- ==========================================
+       SETUP
+  =========================================== -->
 
-  <section id="setup-screen" class="auth-screen hidden">
+  <section
+    id="setup-screen"
+    class="auth-screen hidden"
+  >
     <div class="auth-card">
 
-      <div class="brand">
-        <h1>Miah</h1>
-        <p>Your personal AI assistant</p>
+      <div class="auth-logo">M</div>
+
+      <h1>Miah</h1>
+
+      <div class="auth-subtitle">
+        Your personal AI assistant
       </div>
 
-      <h2>First-time setup</h2>
-
-      <p>
-        Create the password that protects your Miah dashboard.
-      </p>
+      <h2>Create your password</h2>
 
       <input
         id="setup-password"
-        class="input"
+        class="auth-input"
         type="password"
         placeholder="Create password"
       >
 
       <button
         id="setup-button"
-        class="primary-button"
+        class="primary-btn"
       >
-        Create Password
+        Continue
       </button>
 
       <div
@@ -420,37 +801,41 @@
   </section>
 
 
-  <!-- =========================================
+  <!-- ==========================================
        LOGIN
-  ========================================== -->
+  =========================================== -->
 
-  <section id="login-screen" class="auth-screen hidden">
+  <section
+    id="login-screen"
+    class="auth-screen hidden"
+  >
     <div class="auth-card">
 
-      <div class="brand">
-        <h1>Miah</h1>
-        <p>Your personal AI assistant</p>
-      </div>
+      <div class="auth-logo">M</div>
 
-      <h2>Welcome back</h2>
+      <h1>Miah</h1>
+
+      <div class="auth-subtitle">
+        Your personal AI assistant
+      </div>
 
       <input
         id="login-password"
-        class="input"
+        class="auth-input"
         type="password"
         placeholder="Password"
       >
 
       <button
         id="login-button"
-        class="primary-button"
+        class="primary-btn"
       >
-        Continue
+        Log in
       </button>
 
       <button
         id="forgot-password-button"
-        class="secondary-button"
+        class="secondary-btn"
       >
         Forgot password?
       </button>
@@ -464,56 +849,62 @@
   </section>
 
 
-  <!-- =========================================
-       RECOVERY
-  ========================================== -->
+  <!-- ==========================================
+       PASSWORD RECOVERY
+  =========================================== -->
 
-  <section id="recovery-screen" class="auth-screen hidden">
+  <section
+    id="recovery-screen"
+    class="auth-screen hidden"
+  >
     <div class="auth-card">
 
-      <div class="brand">
-        <h1>Miah</h1>
-        <p>Password recovery</p>
+      <div class="auth-logo">M</div>
+
+      <h1>Miah</h1>
+
+      <div class="auth-subtitle">
+        Password recovery
       </div>
 
       <input
         id="recovery-email"
-        class="input"
+        class="auth-input"
         type="email"
         placeholder="Admin Gmail address"
       >
 
       <button
         id="send-code-button"
-        class="primary-button"
+        class="primary-btn"
       >
-        Send Verification Code
+        Send Code
       </button>
 
       <input
         id="recovery-code"
-        class="input hidden"
+        class="auth-input hidden"
         type="text"
         placeholder="Verification code"
       >
 
       <input
         id="recovery-new-password"
-        class="input hidden"
+        class="auth-input hidden"
         type="password"
         placeholder="New password"
       >
 
       <button
         id="reset-password-button"
-        class="primary-button hidden"
+        class="primary-btn hidden"
       >
         Reset Password
       </button>
 
       <button
         id="back-to-login-button"
-        class="secondary-button"
+        class="secondary-btn"
       >
         Back to Login
       </button>
@@ -527,52 +918,79 @@
   </section>
 
 
-  <!-- =========================================
-       MAIN APP
-  ========================================== -->
+  <!-- ==========================================
+       APP
+  =========================================== -->
 
-  <section id="app-screen" class="app hidden">
+  <section
+    id="app-screen"
+    class="app hidden"
+  >
 
-    <header class="topbar">
+    <!-- Sidebar -->
 
-      <div class="topbar-left">
+    <aside class="sidebar">
 
-        <div class="miah-logo">
-          M
-        </div>
+      <div class="sidebar-top">
 
-        <div>
-          <div class="topbar-title">
+        <button
+          id="new-chat-button"
+          class="new-chat-btn"
+        >
+          <span>＋</span>
+          <span>New chat</span>
+        </button>
+
+      </div>
+
+      <div class="sidebar-label">
+        Chat
+      </div>
+
+      <div
+        id="current-chat"
+        class="sidebar-chat active"
+      >
+        Miah
+      </div>
+
+      <div class="sidebar-bottom">
+
+        <div class="sidebar-user">
+
+          <div class="avatar">
+            M
+          </div>
+
+          <div class="sidebar-user-name">
             Miah
           </div>
 
-          <div class="topbar-subtitle">
-            Personal AI Assistant
-          </div>
+          <button
+            id="settings-button"
+            class="icon-btn"
+            title="Settings"
+          >
+            ⚙
+          </button>
+
         </div>
 
       </div>
 
-      <div>
-        <button
-          id="settings-button"
-          class="logout-button"
-        >
-          Settings
-        </button>
-
-        <button
-          id="logout-button"
-          class="logout-button"
-        >
-          Logout
-        </button>
-      </div>
-
-    </header>
+    </aside>
 
 
-    <main class="chat-area">
+    <!-- Chat -->
+
+    <main class="chat">
+
+      <header class="chat-header">
+        <div class="chat-header-title">
+          Miah
+        </div>
+      </header>
+
 
       <div
         id="messages"
@@ -583,43 +1001,57 @@
           id="welcome"
           class="welcome"
         >
-          <h1>Hello 👋</h1>
 
-          <p>
-            I'm Miah. We can talk, ask questions,
-            work through ideas, and continue the
-            conversation naturally.
-          </p>
+          <div class="welcome-inner">
+
+            <div class="welcome-logo">
+              M
+            </div>
+
+            <h1>
+              How can I help you?
+            </h1>
+
+            <p>
+              I'm Miah. Ask me anything, explain
+              something you're working on, or just
+              start a conversation.
+            </p>
+
+          </div>
+
         </div>
 
       </div>
 
 
-      <div class="composer-wrap">
+      <div class="composer-area">
 
         <form
           id="chat-form"
           class="composer"
         >
 
-          <input
+          <textarea
             id="message-input"
-            type="text"
+            class="message-input"
+            rows="1"
             placeholder="Message Miah..."
             autocomplete="off"
-          >
+          ></textarea>
 
           <button
             id="send-button"
-            class="send-button"
+            class="send-btn"
             type="submit"
+            aria-label="Send"
           >
-            Send
+            ↑
           </button>
 
         </form>
 
-        <div class="footer-note">
+        <div class="composer-note">
           Miah can make mistakes. Check important information.
         </div>
 
@@ -630,9 +1062,9 @@
   </section>
 
 
-  <!-- =========================================
-       SETTINGS PANEL
-  ========================================== -->
+  <!-- ==========================================
+       SETTINGS
+  =========================================== -->
 
   <div
     id="settings-panel"
@@ -643,14 +1075,21 @@
 
     <button
       id="change-password-button"
-      class="small-button"
+      class="settings-button"
     >
-      Change Password
+      Change password
+    </button>
+
+    <button
+      id="logout-button"
+      class="settings-button"
+    >
+      Log out
     </button>
 
     <button
       id="close-settings-button"
-      class="small-button"
+      class="settings-button"
     >
       Close
     </button>
@@ -659,6 +1098,10 @@
 
 
 <script>
+  /* =========================================
+     CONFIGURATION
+  ========================================= */
+
   const API_BASE_URL =
     window.location.hostname === "localhost" ||
     window.location.hostname === "127.0.0.1"
@@ -666,14 +1109,85 @@
       : "https://kenzi.onrender.com";
 
 
-  const USER_ID_KEY = "miah_user_id";
-  const PASSWORD_KEY = "miah_password";
+  const PASSWORD_KEY =
+    "miah_password";
+
+  const USER_ID_KEY =
+    "miah_user_id";
+
+
+  /* =========================================
+     ELEMENTS
+  ========================================= */
+
+  const setupScreen =
+    document.getElementById(
+      "setup-screen"
+    );
+
+  const loginScreen =
+    document.getElementById(
+      "login-screen"
+    );
+
+  const recoveryScreen =
+    document.getElementById(
+      "recovery-screen"
+    );
+
+  const appScreen =
+    document.getElementById(
+      "app-screen"
+    );
+
+  const messages =
+    document.getElementById(
+      "messages"
+    );
+
+  const messageInput =
+    document.getElementById(
+      "message-input"
+    );
+
+  const sendButton =
+    document.getElementById(
+      "send-button"
+    );
+
+
+  /* =========================================
+     AUTH HELPERS
+  ========================================= */
+
+  function getPassword() {
+    return localStorage.getItem(
+      PASSWORD_KEY
+    );
+  }
+
+
+  function savePassword(password) {
+    localStorage.setItem(
+      PASSWORD_KEY,
+      password
+    );
+  }
+
+
+  function clearPassword() {
+    localStorage.removeItem(
+      PASSWORD_KEY
+    );
+  }
 
 
   function getUserId() {
 
     let userId =
-      localStorage.getItem(USER_ID_KEY);
+      localStorage.getItem(
+        USER_ID_KEY
+      );
 
     if (!userId) {
 
@@ -691,71 +1205,52 @@
   }
 
 
-  function getPassword() {
-    return localStorage.getItem(
-      PASSWORD_KEY
+  function getAuthHeader(password) {
+
+    return (
+      "Basic " +
+      btoa(":" + password)
     );
   }
 
 
-  function savePassword(password) {
+  function showScreen(id) {
 
-    localStorage.setItem(
-      PASSWORD_KEY,
-      password
+    [
+      setupScreen,
+      loginScreen,
+      recoveryScreen,
+      appScreen
+    ].forEach(
+      element =>
+        element.classList.add(
+          "hidden"
+        )
     );
-  }
-
-
-  function clearPassword() {
-
-    localStorage.removeItem(
-      PASSWORD_KEY
-    );
-  }
-
-
-  function authHeader(password) {
-
-    return "Basic " +
-      btoa(":" + password);
-  }
-
-
-  function showOnly(screenId) {
-
-    const screens = [
-      "setup-screen",
-      "login-screen",
-      "recovery-screen",
-      "app-screen"
-    ];
-
-    screens.forEach(id => {
-
-      document
-        .getElementById(id)
-        .classList.add("hidden");
-
-    });
 
     document
-      .getElementById(screenId)
-      .classList.remove("hidden");
+      .getElementById(id)
+      .classList.remove(
+        "hidden"
+      );
   }
 
 
   function setMessage(
-    elementId,
+    id,
     text
   ) {
 
     document
-      .getElementById(elementId)
-      .textContent = text || "";
-
+      .getElementById(id)
+      .textContent =
+      text || "";
   }
 
+
+  /* =========================================
+     API
+  ========================================= */
 
   async function getAuthStatus() {
 
@@ -765,26 +1260,28 @@
       );
 
     if (!response.ok) {
-
       throw new Error(
-        "Could not connect to Miah."
+        "Miah backend is unavailable."
       );
-
     }
 
     return response.json();
   }
 
 
+  /* =========================================
+     PASSWORD SETUP
+  ========================================= */
+
   async function setupPassword() {
 
-    const input =
-      document.getElementById(
-        "setup-password"
-      );
-
     const password =
-      input.value.trim();
+      document
+        .getElementById(
+          "setup-password"
+        )
+        .value
+        .trim();
 
     if (!password) {
 
@@ -810,9 +1307,10 @@
                 "application/json"
             },
 
-            body: JSON.stringify({
-              password
-            })
+            body:
+              JSON.stringify({
+                password
+              })
           }
         );
 
@@ -822,20 +1320,25 @@
 
 
       if (!response.ok) {
-
         throw new Error(
           data.error ||
-          "Password setup failed."
+          "Could not set the password."
         );
-
       }
 
 
       savePassword(password);
 
-      showOnly("app-screen");
+      document
+        .getElementById(
+          "setup-password"
+        )
+        .value = "";
 
-      input.value = "";
+
+      showScreen(
+        "app-screen"
+      );
 
 
     } catch (error) {
@@ -849,15 +1352,19 @@
   }
 
 
+  /* =========================================
+     LOGIN
+  ========================================= */
+
   async function login() {
 
-    const input =
-      document.getElementById(
-        "login-password"
-      );
-
     const password =
-      input.value.trim();
+      document
+        .getElementById(
+          "login-password"
+        )
+        .value
+        .trim();
 
     if (!password) {
 
@@ -878,26 +1385,36 @@
           {
             headers: {
               Authorization:
-                authHeader(password)
+                getAuthHeader(
+                  password
+                )
             }
           }
         );
 
 
       if (!response.ok) {
-
         throw new Error(
           "Incorrect password."
         );
-
       }
 
 
       savePassword(password);
 
-      input.value = "";
+      document
+        .getElementById(
+          "login-password"
+        )
+        .value = "";
 
-      showOnly("app-screen");
+
+      showScreen(
+        "app-screen"
+      );
+
+
+      messageInput.focus();
 
 
     } catch (error) {
@@ -911,39 +1428,67 @@
   }
 
 
+  /* =========================================
+     LOGOUT
+  ========================================= */
+
   function logout() {
 
     clearPassword();
 
-    document
-      .getElementById(
-        "messages"
-      )
-      .innerHTML = `
-        <div id="welcome" class="welcome">
-          <h1>Hello 👋</h1>
-          <p>
-            I'm Miah. We can talk, ask questions,
-            work through ideas, and continue the
-            conversation naturally.
-          </p>
-        </div>
-      `;
+    messages.innerHTML = "";
 
-    showOnly("login-screen");
+    addWelcome();
+
+    closeSettings();
+
+    showScreen(
+      "login-screen"
+    );
   }
 
+
+  /* =========================================
+     WELCOME
+  ========================================= */
+
+  function addWelcome() {
+
+    messages.innerHTML = `
+      <div
+        id="welcome"
+        class="welcome"
+      >
+        <div class="welcome-inner">
+
+          <div class="welcome-logo">
+            M
+          </div>
+
+          <h1>
+            How can I help you?
+          </h1>
+
+          <p>
+            I'm Miah. Ask me anything,
+            explain something you're working on,
+            or just start a conversation.
+          </p>
+
+        </div>
+      </div>
+    `;
+  }
+
+
+  /* =========================================
+     MESSAGE RENDERING
+  ========================================= */
 
   function addMessage(
     role,
     text
   ) {
-
-    const messages =
-      document.getElementById(
-        "messages"
-      );
-
 
     const welcome =
       document.getElementById(
@@ -964,56 +1509,92 @@
       `message-row ${role}`;
 
 
-    const bubble =
+    const inner =
       document.createElement(
         "div"
       );
 
-    bubble.className =
-      "message-bubble";
+    inner.className =
+      "message-inner";
+
+
+    const avatar =
+      document.createElement(
+        "div"
+      );
+
+    avatar.className =
+      "message-avatar";
+
+    avatar.textContent =
+      role === "assistant"
+        ? "M"
+        : "Y";
+
+
+    const content =
+      document.createElement(
+        "div"
+      );
+
+    content.className =
+      "message-content";
 
 
     const name =
       document.createElement(
-        "span"
+        "div"
       );
 
     name.className =
       "message-name";
 
     name.textContent =
-      role === "user"
-        ? "You"
-        : "Miah";
+      role === "assistant"
+        ? "Miah"
+        : "You";
 
 
-    const content =
+    const body =
       document.createElement(
-        "span"
+        "div"
       );
 
-    content.textContent =
+    body.className =
+      role === "user"
+        ? "message-text user-bubble"
+        : "message-text";
+
+    body.textContent =
       text;
 
 
-    bubble.appendChild(name);
-    bubble.appendChild(content);
+    content.appendChild(name);
+    content.appendChild(body);
 
-    row.appendChild(bubble);
+    inner.appendChild(avatar);
+    inner.appendChild(content);
+
+    row.appendChild(inner);
 
     messages.appendChild(row);
+
 
     messages.scrollTop =
       messages.scrollHeight;
   }
 
 
-  function addTypingMessage() {
+  function addTyping() {
 
-    const messages =
+    const welcome =
       document.getElementById(
-        "messages"
+        "welcome"
       );
+
+    if (welcome) {
+      welcome.remove();
+    }
 
 
     const row =
@@ -1021,35 +1602,85 @@
         "div"
       );
 
+    row.id =
+      "typing-message";
+
     row.className =
       "message-row assistant";
 
 
-    const bubble =
+    const inner =
       document.createElement(
         "div"
       );
 
-    bubble.className =
-      "message-bubble typing";
-
-    bubble.id =
-      "typing-message";
-
-    bubble.textContent =
-      "Miah is thinking...";
+    inner.className =
+      "message-inner";
 
 
-    row.appendChild(bubble);
+    const avatar =
+      document.createElement(
+        "div"
+      );
+
+    avatar.className =
+      "message-avatar";
+
+    avatar.textContent =
+      "M";
+
+
+    const content =
+      document.createElement(
+        "div"
+      );
+
+    content.className =
+      "message-content";
+
+
+    const name =
+      document.createElement(
+        "div"
+      );
+
+    name.className =
+      "message-name";
+
+    name.textContent =
+      "Miah";
+
+
+    const dots =
+      document.createElement(
+        "div"
+      );
+
+    dots.className =
+      "typing-dots";
+
+
+    dots.innerHTML =
+      "<span></span><span></span><span></span>";
+
+
+    content.appendChild(name);
+    content.appendChild(dots);
+
+    inner.appendChild(avatar);
+    inner.appendChild(content);
+
+    row.appendChild(inner);
 
     messages.appendChild(row);
+
 
     messages.scrollTop =
       messages.scrollHeight;
   }
 
 
-  function removeTypingMessage() {
+  function removeTyping() {
 
     const typing =
       document.getElementById(
@@ -1057,26 +1688,19 @@
       );
 
     if (typing) {
-      typing.parentElement.remove();
+      typing.remove();
     }
   }
 
 
+  /* =========================================
+     SEND MESSAGE
+  ========================================= */
+
   async function sendMessage() {
 
-    const input =
-      document.getElementById(
-        "message-input"
-      );
-
-    const button =
-      document.getElementById(
-        "send-button"
-      );
-
-
     const text =
-      input.value.trim();
+      messageInput.value.trim();
 
     if (!text) {
       return;
@@ -1085,6 +1709,7 @@
 
     const password =
       getPassword();
+
 
     if (!password) {
 
@@ -1100,11 +1725,15 @@
     );
 
 
-    input.value = "";
+    messageInput.value = "";
 
-    button.disabled = true;
+    resizeInput();
 
-    addTypingMessage();
+    sendButton.disabled =
+      true;
+
+
+    addTyping();
 
 
     try {
@@ -1120,15 +1749,18 @@
                 "application/json",
 
               Authorization:
-                authHeader(password),
+                getAuthHeader(
+                  password
+                ),
 
               "X-User-Id":
                 getUserId()
             },
 
-            body: JSON.stringify({
-              message: text
-            })
+            body:
+              JSON.stringify({
+                message: text
+              })
           }
         );
 
@@ -1137,31 +1769,33 @@
         await response.json();
 
 
-      removeTypingMessage();
+      removeTyping();
 
 
-      if (response.status === 401) {
+      if (
+        response.status === 401
+      ) {
 
         clearPassword();
 
-        addMessage(
-          "assistant",
-          "Your session has expired. Please log in again."
+        showScreen(
+          "login-screen"
         );
 
-        showOnly("login-screen");
+        setMessage(
+          "login-message",
+          "Your session has expired."
+        );
 
         return;
       }
 
 
       if (!response.ok) {
-
         throw new Error(
           data.error ||
-          "Miah could not respond."
+          "Miah couldn't process the message."
         );
-
       }
 
 
@@ -1174,7 +1808,7 @@
 
     } catch (error) {
 
-      removeTypingMessage();
+      removeTyping();
 
       addMessage(
         "assistant",
@@ -1183,17 +1817,84 @@
 
     } finally {
 
-      button.disabled = false;
+      sendButton.disabled =
+        false;
 
-      input.focus();
+      messageInput.focus();
 
     }
   }
 
 
+  /* =========================================
+     TEXTAREA
+  ========================================= */
+
+  function resizeInput() {
+
+    messageInput.style.height =
+      "auto";
+
+    messageInput.style.height =
+      Math.min(
+        messageInput.scrollHeight,
+        160
+      ) + "px";
+  }
+
+
+  messageInput.addEventListener(
+    "input",
+    resizeInput
+  );
+
+
+  messageInput.addEventListener(
+    "keydown",
+    event => {
+
+      if (
+        event.key === "Enter" &&
+        !event.shiftKey
+      ) {
+
+        event.preventDefault();
+
+        document
+          .getElementById(
+            "chat-form"
+          )
+          .requestSubmit();
+
+      }
+
+    }
+  );
+
+
+  /* =========================================
+     NEW CHAT
+  ========================================= */
+
+  function newChat() {
+
+    addWelcome();
+
+    messageInput.value = "";
+
+    resizeInput();
+
+    messageInput.focus();
+  }
+
+
+  /* =========================================
+     RECOVERY
+  ========================================= */
+
   function openRecovery() {
 
-    showOnly(
+    showScreen(
       "recovery-screen"
     );
 
@@ -1201,16 +1902,18 @@
       "recovery-message",
       ""
     );
-
   }
 
 
   async function sendRecoveryCode() {
 
     const email =
-      document.getElementById(
-        "recovery-email"
-      ).value.trim();
+      document
+        .getElementById(
+          "recovery-email"
+        )
+        .value
+        .trim();
 
 
     if (!email) {
@@ -1237,9 +1940,10 @@
                 "application/json"
             },
 
-            body: JSON.stringify({
-              email
-            })
+            body:
+              JSON.stringify({
+                email
+              })
           }
         );
 
@@ -1249,12 +1953,10 @@
 
 
       if (!response.ok) {
-
         throw new Error(
           data.error ||
-          "Could not send code."
+          "Could not send the code."
         );
-
       }
 
 
@@ -1262,19 +1964,27 @@
         .getElementById(
           "recovery-code"
         )
-        .classList.remove("hidden");
+        .classList.remove(
+          "hidden"
+        );
+
 
       document
         .getElementById(
           "recovery-new-password"
         )
-        .classList.remove("hidden");
+        .classList.remove(
+          "hidden"
+        );
+
 
       document
         .getElementById(
           "reset-password-button"
         )
-        .classList.remove("hidden");
+        .classList.remove(
+          "hidden"
+        );
 
 
       setMessage(
@@ -1297,34 +2007,28 @@
   async function resetPassword() {
 
     const email =
-      document.getElementById(
-        "recovery-email"
-      ).value.trim();
+      document
+        .getElementById(
+          "recovery-email"
+        )
+        .value
+        .trim();
 
     const code =
-      document.getElementById(
-        "recovery-code"
-      ).value.trim();
+      document
+        .getElementById(
+          "recovery-code"
+        )
+        .value
+        .trim();
 
     const newPassword =
-      document.getElementById(
-        "recovery-new-password"
-      ).value.trim();
-
-
-    if (
-      !email ||
-      !code ||
-      !newPassword
-    ) {
-
-      setMessage(
-        "recovery-message",
-        "Fill in all the fields."
-      );
-
-      return;
-    }
+      document
+        .getElementById(
+          "recovery-new-password"
+        )
+        .value
+        .trim();
 
 
     try {
@@ -1340,11 +2044,12 @@
                 "application/json"
             },
 
-            body: JSON.stringify({
-              email,
-              code,
-              newPassword
-            })
+            body:
+              JSON.stringify({
+                email,
+                code,
+                newPassword
+              })
           }
         );
 
@@ -1354,12 +2059,10 @@
 
 
       if (!response.ok) {
-
         throw new Error(
           data.error ||
           "Password reset failed."
         );
-
       }
 
 
@@ -1367,7 +2070,8 @@
         newPassword
       );
 
-      showOnly(
+
+      showScreen(
         "app-screen"
       );
 
@@ -1383,160 +2087,154 @@
   }
 
 
-  async function changePassword() {
+  /* =========================================
+     SETTINGS
+  ========================================= */
 
-    const current =
-      prompt(
-        "Enter your current password:"
+  function closeSettings() {
+
+    document
+      .getElementById(
+        "settings-panel"
+      )
+      .classList.add(
+        "hidden"
       );
-
-    if (!current) {
-      return;
-    }
-
-
-    const next =
-      prompt(
-        "Enter your new password:"
-      );
-
-    if (!next) {
-      return;
-    }
-
-
-    try {
-
-      const response =
-        await fetch(
-          `${API_BASE_URL}/api/change-password`,
-          {
-            method: "POST",
-
-            headers: {
-              "Content-Type":
-                "application/json",
-
-              Authorization:
-                authHeader(current)
-            },
-
-            body: JSON.stringify({
-              currentPassword: current,
-              newPassword: next
-            })
-          }
-        );
-
-
-      const data =
-        await response.json();
-
-
-      if (!response.ok) {
-
-        throw new Error(
-          data.error ||
-          "Could not change password."
-        );
-
-      }
-
-
-      savePassword(next);
-
-      alert(
-        "Password changed successfully."
-      );
-
-
-    } catch (error) {
-
-      alert(
-        error.message
-      );
-
-    }
   }
 
 
-  async function initialize() {
+  document
+    .getElementById(
+      "settings-button"
+    )
+    .addEventListener(
+      "click",
+      () => {
 
-    try {
+        document
+          .getElementById(
+            "settings-panel"
+          )
+          .classList.toggle(
+            "hidden"
+          );
 
-      const status =
-        await getAuthStatus();
-
-
-      const savedPassword =
-        getPassword();
-
-
-      if (!status.configured) {
-
-        showOnly(
-          "setup-screen"
-        );
-
-        return;
       }
+    );
 
 
-      if (
-        savedPassword
-      ) {
+  document
+    .getElementById(
+      "close-settings-button"
+    )
+    .addEventListener(
+      "click",
+      closeSettings
+    );
+
+
+  document
+    .getElementById(
+      "logout-button"
+    )
+    .addEventListener(
+      "click",
+      logout
+    );
+
+
+  document
+    .getElementById(
+      "change-password-button"
+    )
+    .addEventListener(
+      async () => {
+
+        const current =
+          prompt(
+            "Enter your current password:"
+          );
+
+        if (!current) {
+          return;
+        }
+
+        const next =
+          prompt(
+            "Enter your new password:"
+          );
+
+        if (!next) {
+          return;
+        }
+
 
         try {
 
-          const check =
+          const response =
             await fetch(
-              `${API_BASE_URL}/api/dashboard`,
+              `${API_BASE_URL}/api/change-password`,
               {
+                method: "POST",
+
                 headers: {
+                  "Content-Type":
+                    "application/json",
+
                   Authorization:
-                    authHeader(
-                      savedPassword
+                    getAuthHeader(
+                      current
                     )
-                }
+                },
+
+                body:
+                  JSON.stringify({
+                    currentPassword:
+                      current,
+
+                    newPassword:
+                      next
+                  })
               }
             );
 
 
-          if (check.ok) {
+          const data =
+            await response.json();
 
-            showOnly(
-              "app-screen"
+
+          if (!response.ok) {
+            throw new Error(
+              data.error ||
+              "Could not change password."
             );
-
-            return;
           }
 
-        } catch {
-          // Continue to login.
+
+          savePassword(next);
+
+          alert(
+            "Password changed successfully."
+          );
+
+          closeSettings();
+
+
+        } catch (error) {
+
+          alert(
+            error.message
+          );
+
         }
 
       }
+    );
 
 
-      showOnly(
-        "login-screen"
-      );
-
-
-    } catch (error) {
-
-      showOnly(
-        "login-screen"
-      );
-
-      setMessage(
-        "login-message",
-        "Miah backend is unavailable."
-      );
-
-    }
-  }
-
+  /* =========================================
+     BUTTON EVENTS
+  ========================================= */
 
   document
     .getElementById(
@@ -1594,67 +2292,20 @@
     )
     .addEventListener(
       "click",
-      () => showOnly("login-screen")
+      () =>
+        showScreen(
+          "login-screen"
+        )
     );
 
 
   document
     .getElementById(
-      "logout-button"
+      "new-chat-button"
     )
     .addEventListener(
       "click",
-      logout
-    );
-
-
-  document
-    .getElementById(
-      "settings-button"
-    )
-    .addEventListener(
-      "click",
-      () => {
-
-        document
-          .getElementById(
-            "settings-panel"
-          )
-          .classList.toggle(
-            "hidden"
-          );
-
-      }
-    );
-
-
-  document
-    .getElementById(
-      "close-settings-button"
-    )
-    .addEventListener(
-      "click",
-      () => {
-
-        document
-          .getElementById(
-            "settings-panel"
-          )
-          .classList.add(
-            "hidden"
-          );
-
-      }
-    );
-
-
-  document
-    .getElementById(
-      "change-password-button"
-    )
-    .addEventListener(
-      "click",
-      changePassword
+      newChat
     );
 
 
@@ -1674,26 +2325,86 @@
     );
 
 
-  document
-    .getElementById(
-      "message-input"
-    )
-    .addEventListener(
-      "keydown",
-      event => {
+  /* =========================================
+     INITIALIZE
+  ========================================= */
 
-        if (
-          event.key === "Enter"
-        ) {
+  async function initialize() {
 
-          event.preventDefault();
+    try {
 
-          sendMessage();
+      const status =
+        await getAuthStatus();
 
-        }
 
+      const savedPassword =
+        getPassword();
+
+
+      if (
+        !status.configured
+      ) {
+
+        showScreen(
+          "setup-screen"
+        );
+
+        return;
       }
-    );
+
+
+      if (savedPassword) {
+
+        try {
+
+          const check =
+            await fetch(
+              `${API_BASE_URL}/api/dashboard`,
+              {
+                headers: {
+                  Authorization:
+                    getAuthHeader(
+                      savedPassword
+                    )
+                }
+              }
+            );
+
+
+          if (check.ok) {
+
+            showScreen(
+              "app-screen"
+            );
+
+            messageInput.focus();
+
+            return;
+          }
+
+        } catch {
+          // Go to login.
+        }
+      }
+
+
+      showScreen(
+        "login-screen"
+      );
+
+
+    } catch (error) {
+
+      showScreen(
+        "login-screen"
+      );
+
+      setMessage(
+        "login-message",
+        error.message
+      );
+    }
+  }
 
 
   initialize();
