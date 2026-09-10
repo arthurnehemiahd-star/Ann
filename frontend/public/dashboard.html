@@ -1,372 +1,1703 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>A Dashboard</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        background: #0f172a;
-        color: #e2e8f0;
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Miah</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    body {
+      font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+      background: #0b1020;
+      color: #e5e7eb;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* -----------------------------------------
+       AUTH
+    ----------------------------------------- */
+
+    .auth-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .auth-card {
+      width: 100%;
+      max-width: 420px;
+      background: #111827;
+      border: 1px solid #25304a;
+      border-radius: 18px;
+      padding: 30px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    }
+
+    .brand {
+      text-align: center;
+      margin-bottom: 26px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 38px;
+      letter-spacing: -1px;
+    }
+
+    .brand p {
+      margin: 8px 0 0;
+      color: #9ca3af;
+    }
+
+    .auth-card h2 {
+      margin-top: 0;
+    }
+
+    .input {
+      width: 100%;
+      border: 1px solid #374151;
+      background: #0f172a;
+      color: #fff;
+      padding: 13px 14px;
+      border-radius: 10px;
+      outline: none;
+      margin-top: 10px;
+    }
+
+    .input:focus {
+      border-color: #6b7280;
+    }
+
+    .primary-button {
+      width: 100%;
+      margin-top: 12px;
+      border: none;
+      border-radius: 10px;
+      padding: 13px;
+      cursor: pointer;
+      background: #2563eb;
+      color: white;
+      font-weight: 600;
+    }
+
+    .secondary-button {
+      width: 100%;
+      margin-top: 10px;
+      border: 1px solid #374151;
+      border-radius: 10px;
+      padding: 13px;
+      cursor: pointer;
+      background: transparent;
+      color: #e5e7eb;
+    }
+
+    .auth-message {
+      min-height: 22px;
+      margin-top: 12px;
+      color: #fca5a5;
+      font-size: 14px;
+    }
+
+    /* -----------------------------------------
+       CHAT APP
+    ----------------------------------------- */
+
+    .app {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topbar {
+      height: 64px;
+      flex-shrink: 0;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      padding: 0 18px;
+
+      background: #111827;
+      border-bottom: 1px solid #25304a;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .miah-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background: #2563eb;
+      color: white;
+      font-weight: 700;
+    }
+
+    .topbar-title {
+      font-weight: 700;
+      font-size: 17px;
+    }
+
+    .topbar-subtitle {
+      font-size: 12px;
+      color: #9ca3af;
+    }
+
+    .logout-button {
+      border: 1px solid #374151;
+      background: transparent;
+      color: #d1d5db;
+      border-radius: 9px;
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+
+    .chat-area {
+      flex: 1;
+      min-height: 0;
+
+      display: flex;
+      flex-direction: column;
+    }
+
+    .messages {
+      flex: 1;
+      overflow-y: auto;
+
+      padding: 24px 18px;
+
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .welcome {
+      max-width: 760px;
+      width: 100%;
+      margin: auto;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .welcome h1 {
+      margin-bottom: 8px;
+      font-size: 32px;
+    }
+
+    .welcome p {
+      margin: 0;
+      color: #9ca3af;
+      line-height: 1.6;
+    }
+
+    .message-row {
+      width: 100%;
+      display: flex;
+    }
+
+    .message-row.user {
+      justify-content: flex-end;
+    }
+
+    .message-row.assistant {
+      justify-content: flex-start;
+    }
+
+    .message-bubble {
+      max-width: min(760px, 85%);
+      padding: 12px 15px;
+      border-radius: 15px;
+      white-space: pre-wrap;
+      line-height: 1.55;
+    }
+
+    .message-row.user .message-bubble {
+      background: #2563eb;
+      color: white;
+      border-bottom-right-radius: 4px;
+    }
+
+    .message-row.assistant .message-bubble {
+      background: #172033;
+      border: 1px solid #26324a;
+      border-bottom-left-radius: 4px;
+    }
+
+    .message-name {
+      display: block;
+      font-size: 11px;
+      margin-bottom: 5px;
+      opacity: 0.7;
+    }
+
+    .typing {
+      opacity: 0.7;
+      font-style: italic;
+    }
+
+    .composer-wrap {
+      padding: 14px 18px 18px;
+      border-top: 1px solid #25304a;
+      background: #0f172a;
+    }
+
+    .composer {
+      max-width: 900px;
+      margin: 0 auto;
+
+      display: flex;
+      gap: 10px;
+    }
+
+    .composer input {
+      flex: 1;
+      border: 1px solid #374151;
+      background: #111827;
+      color: white;
+      padding: 14px 16px;
+      border-radius: 13px;
+      outline: none;
+    }
+
+    .composer input:focus {
+      border-color: #64748b;
+    }
+
+    .send-button {
+      width: 100px;
+      border: none;
+      border-radius: 13px;
+      background: #2563eb;
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .send-button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .footer-note {
+      max-width: 900px;
+      margin: 8px auto 0;
+      font-size: 11px;
+      text-align: center;
+      color: #6b7280;
+    }
+
+    /* -----------------------------------------
+       SETTINGS
+    ----------------------------------------- */
+
+    .settings-panel {
+      position: fixed;
+      top: 76px;
+      right: 16px;
+
+      width: 320px;
+
+      padding: 18px;
+
+      border-radius: 14px;
+      border: 1px solid #25304a;
+
+      background: #111827;
+
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    }
+
+    .settings-panel h3 {
+      margin-top: 0;
+    }
+
+    .small-button {
+      width: 100%;
+      margin-top: 8px;
+      border: 1px solid #374151;
+      background: transparent;
+      color: #e5e7eb;
+      padding: 10px;
+      border-radius: 9px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      .message-bubble {
+        max-width: 92%;
       }
-      .container {
-        max-width: 960px;
-        margin: 40px auto;
-        padding: 24px;
+
+      .send-button {
+        width: 74px;
       }
-      .card {
-        background: #111827;
-        border: 1px solid #334155;
-        border-radius: 12px;
-        padding: 20px;
-        margin-bottom: 20px;
-      }
-      h1, h2 {
-        margin-top: 0;
-      }
-      .stats {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        gap: 16px;
-      }
-      .stat {
-        background: #1e293b;
-        padding: 16px;
-        border-radius: 10px;
-      }
-      ul {
-        padding-left: 20px;
-      }
-      .login-box {
-        max-width: 420px;
-        margin: 60px auto;
-      }
-      input, button {
-        width: 100%;
-        box-sizing: border-box;
-        margin-top: 10px;
-        padding: 12px;
-        border-radius: 8px;
-        border: 1px solid #475569;
-      }
-      button {
-        background: #2563eb;
-        color: white;
-        border: none;
-        cursor: pointer;
-      }
-      .hidden {
+
+      .topbar-subtitle {
         display: none;
       }
-      .small {
-        font-size: 12px;
-        opacity: 0.8;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="login-view" class="container login-box">
-      <div class="card">
-        <h1 id="auth-title">Private Access</h1>
-        <p id="auth-message">Enter the dashboard password.</p>
-        <input id="password-input" type="password" placeholder="Password" />
-        <button id="login-button">Continue</button>
+    }
+  </style>
+</head>
 
-        <div id="recovery-box" class="card" style="margin-top: 16px; display: none;">
-          <h2>Forgot password?</h2>
-          <input id="recovery-email" type="email" placeholder="Your Gmail address" />
-          <button id="send-code-button">Send verification code</button>
-          <input id="recovery-code" type="text" placeholder="Verification code from email" style="display: none; margin-top: 10px;" />
-          <input id="new-password" type="password" placeholder="New password" style="display: none; margin-top: 10px;" />
-          <button id="verify-code-button" style="display: none;">Verify and reset password</button>
+<body>
+
+  <!-- =========================================
+       FIRST TIME SETUP
+  ========================================== -->
+
+  <section id="setup-screen" class="auth-screen hidden">
+    <div class="auth-card">
+
+      <div class="brand">
+        <h1>Miah</h1>
+        <p>Your personal AI assistant</p>
+      </div>
+
+      <h2>First-time setup</h2>
+
+      <p>
+        Create the password that protects your Miah dashboard.
+      </p>
+
+      <input
+        id="setup-password"
+        class="input"
+        type="password"
+        placeholder="Create password"
+      >
+
+      <button
+        id="setup-button"
+        class="primary-button"
+      >
+        Create Password
+      </button>
+
+      <div
+        id="setup-message"
+        class="auth-message"
+      ></div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================
+       LOGIN
+  ========================================== -->
+
+  <section id="login-screen" class="auth-screen hidden">
+    <div class="auth-card">
+
+      <div class="brand">
+        <h1>Miah</h1>
+        <p>Your personal AI assistant</p>
+      </div>
+
+      <h2>Welcome back</h2>
+
+      <input
+        id="login-password"
+        class="input"
+        type="password"
+        placeholder="Password"
+      >
+
+      <button
+        id="login-button"
+        class="primary-button"
+      >
+        Continue
+      </button>
+
+      <button
+        id="forgot-password-button"
+        class="secondary-button"
+      >
+        Forgot password?
+      </button>
+
+      <div
+        id="login-message"
+        class="auth-message"
+      ></div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================
+       RECOVERY
+  ========================================== -->
+
+  <section id="recovery-screen" class="auth-screen hidden">
+    <div class="auth-card">
+
+      <div class="brand">
+        <h1>Miah</h1>
+        <p>Password recovery</p>
+      </div>
+
+      <input
+        id="recovery-email"
+        class="input"
+        type="email"
+        placeholder="Admin Gmail address"
+      >
+
+      <button
+        id="send-code-button"
+        class="primary-button"
+      >
+        Send Verification Code
+      </button>
+
+      <input
+        id="recovery-code"
+        class="input hidden"
+        type="text"
+        placeholder="Verification code"
+      >
+
+      <input
+        id="recovery-new-password"
+        class="input hidden"
+        type="password"
+        placeholder="New password"
+      >
+
+      <button
+        id="reset-password-button"
+        class="primary-button hidden"
+      >
+        Reset Password
+      </button>
+
+      <button
+        id="back-to-login-button"
+        class="secondary-button"
+      >
+        Back to Login
+      </button>
+
+      <div
+        id="recovery-message"
+        class="auth-message"
+      ></div>
+
+    </div>
+  </section>
+
+
+  <!-- =========================================
+       MAIN APP
+  ========================================== -->
+
+  <section id="app-screen" class="app hidden">
+
+    <header class="topbar">
+
+      <div class="topbar-left">
+
+        <div class="miah-logo">
+          M
         </div>
-      </div>
-    </div>
 
-    <div id="first-time-view" class="container login-box hidden">
-      <div class="card">
-        <h1>First Time Setup</h1>
-        <p>Set your dashboard password.</p>
-        <input id="setup-password" type="password" placeholder="New password" />
-        <button id="setup-button">Set Password</button>
-      </div>
-    </div>
-
-    <div id="dashboard-view" class="container hidden">
-      <div class="card">
-        <h1>ANN Dashboard</h1>
-        <p>AI WhatsApp bot with memory and games.</p>
-        <button id="change-password-button">Change password</button>
-        <button id="logout-button" style="margin-top: 10px;">Logout</button>
-      </div>
-
-      <div class="card">
-        <h2>Statistics</h2>
-        <div class="stats">
-          <div class="stat">
-            <div>Messages</div>
-            <div style="font-size: 24px; margin-top: 10px;" id="message-count">0</div>
+        <div>
+          <div class="topbar-title">
+            Miah
           </div>
-          <div class="stat">
-            <div>Memory</div>
-            <div style="font-size: 24px; margin-top: 10px;" id="memory-count">0</div>
-          </div>
-          <div class="stat">
-            <div>Sessions</div>
-            <div style="font-size: 24px; margin-top: 10px;" id="session-count">0</div>
+
+          <div class="topbar-subtitle">
+            Personal AI Assistant
           </div>
         </div>
+
       </div>
 
-      <div class="card">
-        <h2>Recent Messages</h2>
-        <ul id="recent-messages"></ul>
+      <div>
+        <button
+          id="settings-button"
+          class="logout-button"
+        >
+          Settings
+        </button>
+
+        <button
+          id="logout-button"
+          class="logout-button"
+        >
+          Logout
+        </button>
       </div>
 
-      <div class="card">
-        <h2>Saved Memory</h2>
-        <ul id="memory-list"></ul>
-      </div>
-    </div>
+    </header>
 
-    <div id="change-password-view" class="container login-box hidden">
-      <div class="card">
-        <h2>Change Password</h2>
-        <input id="current-password" type="password" placeholder="Current password" />
-        <input id="change-new-password" type="password" placeholder="New password" />
-        <button id="confirm-change-button">Update password</button>
-        <button id="cancel-change-button" style="background: #64748b; margin-top: 10px;">Cancel</button>
-      </div>
-    </div>
 
-    <script>
+    <main class="chat-area">
+
+      <div
+        id="messages"
+        class="messages"
+      >
+
+        <div
+          id="welcome"
+          class="welcome"
+        >
+          <h1>Hello 👋</h1>
+
+          <p>
+            I'm Miah. We can talk, ask questions,
+            work through ideas, and continue the
+            conversation naturally.
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="composer-wrap">
+
+        <form
+          id="chat-form"
+          class="composer"
+        >
+
+          <input
+            id="message-input"
+            type="text"
+            placeholder="Message Miah..."
+            autocomplete="off"
+          >
+
+          <button
+            id="send-button"
+            class="send-button"
+            type="submit"
+          >
+            Send
+          </button>
+
+        </form>
+
+        <div class="footer-note">
+          Miah can make mistakes. Check important information.
+        </div>
+
+      </div>
+
+    </main>
+
+  </section>
+
+
+  <!-- =========================================
+       SETTINGS PANEL
+  ========================================== -->
+
+  <div
+    id="settings-panel"
+    class="settings-panel hidden"
+  >
+
+    <h3>Settings</h3>
+
+    <button
+      id="change-password-button"
+      class="small-button"
+    >
+      Change Password
+    </button>
+
+    <button
+      id="close-settings-button"
+      class="small-button"
+    >
+      Close
+    </button>
+
+  </div>
+
+
+<script>
   const API_BASE_URL =
-    window.location.origin.includes('localhost') ||
-    window.location.origin.includes('127.0.0.1')
-      ? 'http://localhost:3000'
-      : 'https://kenzi.onrender.com';
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1"
+      ? "http://localhost:3000"
+      : "https://kenzi.onrender.com";
 
-  const API_HEADERS = {
-    'Content-Type': 'application/json',
-  };
 
-async function checkAuthStatus() {
-        try {
-          const res = await fetch(`${API_BASE_URL}/api/auth-status`, { credentials: 'include' });
-          const data = await res.json();
-          return data;
-        } catch (error) {
-          console.error('Auth status check failed:', error);
-          return { configured: false, needsSetup: true };
-        }
-      }
+  const USER_ID_KEY = "miah_user_id";
+  const PASSWORD_KEY = "miah_password";
 
-      async function loadDashboard(password) {
-        const authHeader = 'Basic ' + btoa(`:${password}`);
-        try {
-          const res = await fetch(`${API_BASE_URL}/api/dashboard`, {
-            headers: { ...API_HEADERS, Authorization: authHeader },
-            credentials: 'include',
-          });
 
-          if (!res.ok) throw new Error('Unauthorized');
+  function getUserId() {
 
-          const data = await res.json();
-          document.getElementById('message-count').textContent = data.messageCount || 0;
-          document.getElementById('memory-count').textContent = data.memoryCount || 0;
-          document.getElementById('session-count').textContent = data.sessionCount || 0;
+    let userId =
+      localStorage.getItem(USER_ID_KEY);
 
-          const msgList = document.getElementById('recent-messages');
-          msgList.innerHTML = (data.recentMessages || [])
-            .map((m) => `<li><strong>${m.sender}</strong>: ${m.text}</li>`)
-            .join('');
+    if (!userId) {
 
-          const memList = document.getElementById('memory-list');
-          memList.innerHTML = (data.memory || [])
-            .map((m) => `<li><strong>${m.key}</strong>: ${m.value}</li>`)
-            .join('');
+      userId =
+        "web-" +
+        crypto.randomUUID();
 
-          localStorage.setItem('ann_password', password);
-          showDashboard();
-        } catch (error) {
-          alert('Access denied or error loading dashboard');
-          console.error(error);
-        }
-      }
+      localStorage.setItem(
+        USER_ID_KEY,
+        userId
+      );
+    }
 
-      function showDashboard() {
-        document.getElementById('login-view').classList.add('hidden');
-        document.getElementById('first-time-view').classList.add('hidden');
-        document.getElementById('change-password-view').classList.add('hidden');
-        document.getElementById('dashboard-view').classList.remove('hidden');
-      }
+    return userId;
+  }
 
-      function showLogin() {
-        document.getElementById('login-view').classList.remove('hidden');
-        document.getElementById('first-time-view').classList.add('hidden');
-        document.getElementById('dashboard-view').classList.add('hidden');
-        document.getElementById('change-password-view').classList.add('hidden');
-      }
 
-      function showFirstTimeSetup() {
-        document.getElementById('login-view').classList.add('hidden');
-        document.getElementById('first-time-view').classList.remove('hidden');
-        document.getElementById('dashboard-view').classList.add('hidden');
-        document.getElementById('change-password-view').classList.add('hidden');
-      }
+  function getPassword() {
+    return localStorage.getItem(
+      PASSWORD_KEY
+    );
+  }
 
-      document.getElementById('setup-button').addEventListener('click', async () => {
-        const password = document.getElementById('setup-password').value;
-        if (!password) return alert('Password required');
 
-        try {
-          const res = await fetch(`${API_BASE_URL}/api/setup-password`, {
-            method: 'POST',
-            headers: API_HEADERS,
-            body: JSON.stringify({ password }),
-            credentials: 'include',
-          });
-          if (res.ok) {
-            loadDashboard(password);
-          } else {
-            alert('Setup failed');
+  function savePassword(password) {
+
+    localStorage.setItem(
+      PASSWORD_KEY,
+      password
+    );
+  }
+
+
+  function clearPassword() {
+
+    localStorage.removeItem(
+      PASSWORD_KEY
+    );
+  }
+
+
+  function authHeader(password) {
+
+    return "Basic " +
+      btoa(":" + password);
+  }
+
+
+  function showOnly(screenId) {
+
+    const screens = [
+      "setup-screen",
+      "login-screen",
+      "recovery-screen",
+      "app-screen"
+    ];
+
+    screens.forEach(id => {
+
+      document
+        .getElementById(id)
+        .classList.add("hidden");
+
+    });
+
+    document
+      .getElementById(screenId)
+      .classList.remove("hidden");
+  }
+
+
+  function setMessage(
+    elementId,
+    text
+  ) {
+
+    document
+      .getElementById(elementId)
+      .textContent = text || "";
+
+  }
+
+
+  async function getAuthStatus() {
+
+    const response =
+      await fetch(
+        `${API_BASE_URL}/api/auth-status`
+      );
+
+    if (!response.ok) {
+
+      throw new Error(
+        "Could not connect to Miah."
+      );
+
+    }
+
+    return response.json();
+  }
+
+
+  async function setupPassword() {
+
+    const input =
+      document.getElementById(
+        "setup-password"
+      );
+
+    const password =
+      input.value.trim();
+
+    if (!password) {
+
+      setMessage(
+        "setup-message",
+        "Enter a password."
+      );
+
+      return;
+    }
+
+
+    try {
+
+      const response =
+        await fetch(
+          `${API_BASE_URL}/api/setup-password`,
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+
+            body: JSON.stringify({
+              password
+            })
           }
-        } catch (error) {
-          console.error(error);
-          alert('Setup error');
-        }
-      });
+        );
 
-      document.getElementById('login-button').addEventListener('click', async () => {
-        const password = document.getElementById('password-input').value;
-        if (!password) return alert('Password required');
-        loadDashboard(password);
-      });
 
-      document.getElementById('send-code-button').addEventListener('click', async () => {
-        const email = document.getElementById('recovery-email').value;
-        if (!email) return alert('Email required');
+      const data =
+        await response.json();
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          data.error ||
+          "Password setup failed."
+        );
+
+      }
+
+
+      savePassword(password);
+
+      showOnly("app-screen");
+
+      input.value = "";
+
+
+    } catch (error) {
+
+      setMessage(
+        "setup-message",
+        error.message
+      );
+
+    }
+  }
+
+
+  async function login() {
+
+    const input =
+      document.getElementById(
+        "login-password"
+      );
+
+    const password =
+      input.value.trim();
+
+    if (!password) {
+
+      setMessage(
+        "login-message",
+        "Enter your password."
+      );
+
+      return;
+    }
+
+
+    try {
+
+      const response =
+        await fetch(
+          `${API_BASE_URL}/api/dashboard`,
+          {
+            headers: {
+              Authorization:
+                authHeader(password)
+            }
+          }
+        );
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          "Incorrect password."
+        );
+
+      }
+
+
+      savePassword(password);
+
+      input.value = "";
+
+      showOnly("app-screen");
+
+
+    } catch (error) {
+
+      setMessage(
+        "login-message",
+        error.message
+      );
+
+    }
+  }
+
+
+  function logout() {
+
+    clearPassword();
+
+    document
+      .getElementById(
+        "messages"
+      )
+      .innerHTML = `
+        <div id="welcome" class="welcome">
+          <h1>Hello 👋</h1>
+          <p>
+            I'm Miah. We can talk, ask questions,
+            work through ideas, and continue the
+            conversation naturally.
+          </p>
+        </div>
+      `;
+
+    showOnly("login-screen");
+  }
+
+
+  function addMessage(
+    role,
+    text
+  ) {
+
+    const messages =
+      document.getElementById(
+        "messages"
+      );
+
+
+    const welcome =
+      document.getElementById(
+        "welcome"
+      );
+
+    if (welcome) {
+      welcome.remove();
+    }
+
+
+    const row =
+      document.createElement(
+        "div"
+      );
+
+    row.className =
+      `message-row ${role}`;
+
+
+    const bubble =
+      document.createElement(
+        "div"
+      );
+
+    bubble.className =
+      "message-bubble";
+
+
+    const name =
+      document.createElement(
+        "span"
+      );
+
+    name.className =
+      "message-name";
+
+    name.textContent =
+      role === "user"
+        ? "You"
+        : "Miah";
+
+
+    const content =
+      document.createElement(
+        "span"
+      );
+
+    content.textContent =
+      text;
+
+
+    bubble.appendChild(name);
+    bubble.appendChild(content);
+
+    row.appendChild(bubble);
+
+    messages.appendChild(row);
+
+    messages.scrollTop =
+      messages.scrollHeight;
+  }
+
+
+  function addTypingMessage() {
+
+    const messages =
+      document.getElementById(
+        "messages"
+      );
+
+
+    const row =
+      document.createElement(
+        "div"
+      );
+
+    row.className =
+      "message-row assistant";
+
+
+    const bubble =
+      document.createElement(
+        "div"
+      );
+
+    bubble.className =
+      "message-bubble typing";
+
+    bubble.id =
+      "typing-message";
+
+    bubble.textContent =
+      "Miah is thinking...";
+
+
+    row.appendChild(bubble);
+
+    messages.appendChild(row);
+
+    messages.scrollTop =
+      messages.scrollHeight;
+  }
+
+
+  function removeTypingMessage() {
+
+    const typing =
+      document.getElementById(
+        "typing-message"
+      );
+
+    if (typing) {
+      typing.parentElement.remove();
+    }
+  }
+
+
+  async function sendMessage() {
+
+    const input =
+      document.getElementById(
+        "message-input"
+      );
+
+    const button =
+      document.getElementById(
+        "send-button"
+      );
+
+
+    const text =
+      input.value.trim();
+
+    if (!text) {
+      return;
+    }
+
+
+    const password =
+      getPassword();
+
+    if (!password) {
+
+      logout();
+
+      return;
+    }
+
+
+    addMessage(
+      "user",
+      text
+    );
+
+
+    input.value = "";
+
+    button.disabled = true;
+
+    addTypingMessage();
+
+
+    try {
+
+      const response =
+        await fetch(
+          `${API_BASE_URL}/api/chat`,
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json",
+
+              Authorization:
+                authHeader(password),
+
+              "X-User-Id":
+                getUserId()
+            },
+
+            body: JSON.stringify({
+              message: text
+            })
+          }
+        );
+
+
+      const data =
+        await response.json();
+
+
+      removeTypingMessage();
+
+
+      if (response.status === 401) {
+
+        clearPassword();
+
+        addMessage(
+          "assistant",
+          "Your session has expired. Please log in again."
+        );
+
+        showOnly("login-screen");
+
+        return;
+      }
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          data.error ||
+          "Miah could not respond."
+        );
+
+      }
+
+
+      addMessage(
+        "assistant",
+        data.reply ||
+        "I didn't receive a response."
+      );
+
+
+    } catch (error) {
+
+      removeTypingMessage();
+
+      addMessage(
+        "assistant",
+        error.message
+      );
+
+    } finally {
+
+      button.disabled = false;
+
+      input.focus();
+
+    }
+  }
+
+
+  function openRecovery() {
+
+    showOnly(
+      "recovery-screen"
+    );
+
+    setMessage(
+      "recovery-message",
+      ""
+    );
+
+  }
+
+
+  async function sendRecoveryCode() {
+
+    const email =
+      document.getElementById(
+        "recovery-email"
+      ).value.trim();
+
+
+    if (!email) {
+
+      setMessage(
+        "recovery-message",
+        "Enter your admin Gmail address."
+      );
+
+      return;
+    }
+
+
+    try {
+
+      const response =
+        await fetch(
+          `${API_BASE_URL}/api/request-reset`,
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+
+            body: JSON.stringify({
+              email
+            })
+          }
+        );
+
+
+      const data =
+        await response.json();
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          data.error ||
+          "Could not send code."
+        );
+
+      }
+
+
+      document
+        .getElementById(
+          "recovery-code"
+        )
+        .classList.remove("hidden");
+
+      document
+        .getElementById(
+          "recovery-new-password"
+        )
+        .classList.remove("hidden");
+
+      document
+        .getElementById(
+          "reset-password-button"
+        )
+        .classList.remove("hidden");
+
+
+      setMessage(
+        "recovery-message",
+        "Verification code sent."
+      );
+
+
+    } catch (error) {
+
+      setMessage(
+        "recovery-message",
+        error.message
+      );
+
+    }
+  }
+
+
+  async function resetPassword() {
+
+    const email =
+      document.getElementById(
+        "recovery-email"
+      ).value.trim();
+
+    const code =
+      document.getElementById(
+        "recovery-code"
+      ).value.trim();
+
+    const newPassword =
+      document.getElementById(
+        "recovery-new-password"
+      ).value.trim();
+
+
+    if (
+      !email ||
+      !code ||
+      !newPassword
+    ) {
+
+      setMessage(
+        "recovery-message",
+        "Fill in all the fields."
+      );
+
+      return;
+    }
+
+
+    try {
+
+      const response =
+        await fetch(
+          `${API_BASE_URL}/api/reset-password`,
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json"
+            },
+
+            body: JSON.stringify({
+              email,
+              code,
+              newPassword
+            })
+          }
+        );
+
+
+      const data =
+        await response.json();
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          data.error ||
+          "Password reset failed."
+        );
+
+      }
+
+
+      savePassword(
+        newPassword
+      );
+
+      showOnly(
+        "app-screen"
+      );
+
+
+    } catch (error) {
+
+      setMessage(
+        "recovery-message",
+        error.message
+      );
+
+    }
+  }
+
+
+  async function changePassword() {
+
+    const current =
+      prompt(
+        "Enter your current password:"
+      );
+
+    if (!current) {
+      return;
+    }
+
+
+    const next =
+      prompt(
+        "Enter your new password:"
+      );
+
+    if (!next) {
+      return;
+    }
+
+
+    try {
+
+      const response =
+        await fetch(
+          `${API_BASE_URL}/api/change-password`,
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "application/json",
+
+              Authorization:
+                authHeader(current)
+            },
+
+            body: JSON.stringify({
+              currentPassword: current,
+              newPassword: next
+            })
+          }
+        );
+
+
+      const data =
+        await response.json();
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          data.error ||
+          "Could not change password."
+        );
+
+      }
+
+
+      savePassword(next);
+
+      alert(
+        "Password changed successfully."
+      );
+
+
+    } catch (error) {
+
+      alert(
+        error.message
+      );
+
+    }
+  }
+
+
+  async function initialize() {
+
+    try {
+
+      const status =
+        await getAuthStatus();
+
+
+      const savedPassword =
+        getPassword();
+
+
+      if (!status.configured) {
+
+        showOnly(
+          "setup-screen"
+        );
+
+        return;
+      }
+
+
+      if (
+        savedPassword
+      ) {
 
         try {
-          const res = await fetch(`${API_BASE_URL}/api/request-reset`, {
-            method: 'POST',
-            headers: API_HEADERS,
-            body: JSON.stringify({ email }),
-            credentials: 'include',
-          });
-          if (res.ok) {
-            alert('Verification code sent to your Gmail');
-            document.getElementById('recovery-code').style.display = 'block';
-            document.getElementById('new-password').style.display = 'block';
-            document.getElementById('verify-code-button').style.display = 'block';
-          } else {
-            alert('Error sending code');
+
+          const check =
+            await fetch(
+              `${API_BASE_URL}/api/dashboard`,
+              {
+                headers: {
+                  Authorization:
+                    authHeader(
+                      savedPassword
+                    )
+                }
+              }
+            );
+
+
+          if (check.ok) {
+
+            showOnly(
+              "app-screen"
+            );
+
+            return;
           }
-        } catch (error) {
-          console.error(error);
-          alert('Error');
+
+        } catch {
+          // Continue to login.
         }
-      });
 
-      document.getElementById('verify-code-button').addEventListener('click', async () => {
-        const email = document.getElementById('recovery-email').value;
-        const code = document.getElementById('recovery-code').value;
-        const newPassword = document.getElementById('new-password').value;
+      }
 
-        if (!email || !code || !newPassword) return alert('All fields required');
 
-        try {
-          const res = await fetch(`${API_BASE_URL}/api/reset-password`, {
-            method: 'POST',
-            headers: API_HEADERS,
-            body: JSON.stringify({ email, code, newPassword }),
-            credentials: 'include',
-          });
-          if (res.ok) {
-            alert('Password reset successful');
-            loadDashboard(newPassword);
-          } else {
-            alert('Invalid code or error');
-          }
-        } catch (error) {
-          console.error(error);
-          alert('Error resetting password');
-        }
-      });
+      showOnly(
+        "login-screen"
+      );
 
-      document.getElementById('change-password-button').addEventListener('click', () => {
-        document.getElementById('dashboard-view').classList.add('hidden');
-        document.getElementById('change-password-view').classList.remove('hidden');
-      });
 
-      document.getElementById('confirm-change-button').addEventListener('click', async () => {
-        const current = document.getElementById('current-password').value;
-        const newPass = document.getElementById('change-new-password').value;
-        if (!current || !newPass) return alert('Both fields required');
+    } catch (error) {
 
-        const authHeader = 'Basic ' + btoa(`:${current}`);
-        try {
-          const res = await fetch(`${API_BASE_URL}/api/change-password`, {
-            method: 'POST',
-            headers: { ...API_HEADERS, Authorization: authHeader },
-            body: JSON.stringify({ currentPassword: current, newPassword: newPass }),
-            credentials: 'include',
-          });
-          if (res.ok) {
-            alert('Password changed');
-            localStorage.setItem('ann_password', newPass);
-            loadDashboard(newPass);
-          } else {
-            alert('Wrong current password');
-          }
-        } catch (error) {
-          console.error(error);
-          alert('Error changing password');
-        }
-      });
+      showOnly(
+        "login-screen"
+      );
 
-      document.getElementById('cancel-change-button').addEventListener('click', showDashboard);
-      document.getElementById('logout-button').addEventListener('click', () => {
-        localStorage.removeItem('ann_password');
-        document.getElementById('recovery-box').style.display = 'none';
-        document.getElementById('password-input').value = '';
-        showLogin();
-      });
+      setMessage(
+        "login-message",
+        "Miah backend is unavailable."
+      );
 
-      document.getElementById('recovery-box').addEventListener('click', (e) => {
-        if (e.target === document.getElementById('recovery-box')) {
-          document.getElementById('recovery-box').style.display = 'none';
-        }
-      });
+    }
+  }
 
-      document.querySelector('.card').addEventListener('click', (e) => {
-        if (e.target.textContent === 'Forgot password?') {
-          document.getElementById('recovery-box').style.display = 'block';
-        }
-      });
 
-      async function init() {
-        const status = await checkAuthStatus();
-        const savedPassword = localStorage.getItem('ann_password');
+  document
+    .getElementById(
+      "setup-button"
+    )
+    .addEventListener(
+      "click",
+      setupPassword
+    );
 
-        if (!status.configured) {
-          showFirstTimeSetup();
-        } else if (savedPassword) {
-          loadDashboard(savedPassword);
-        } else {
-          const recoverySection = document.getElementById('recovery-box');
-          recoverySection.style.display = 'none';
-          document.querySelector('.card').insertAdjacentHTML(
-            'beforeend',
-            '<button style="margin-top: 10px; background: #64748b;" onclick="document.getElementById(\'recovery-box\').style.display=\'block\'">Forgot password?</button>'
+
+  document
+    .getElementById(
+      "login-button"
+    )
+    .addEventListener(
+      "click",
+      login
+    );
+
+
+  document
+    .getElementById(
+      "forgot-password-button"
+    )
+    .addEventListener(
+      "click",
+      openRecovery
+    );
+
+
+  document
+    .getElementById(
+      "send-code-button"
+    )
+    .addEventListener(
+      "click",
+      sendRecoveryCode
+    );
+
+
+  document
+    .getElementById(
+      "reset-password-button"
+    )
+    .addEventListener(
+      "click",
+      resetPassword
+    );
+
+
+  document
+    .getElementById(
+      "back-to-login-button"
+    )
+    .addEventListener(
+      "click",
+      () => showOnly("login-screen")
+    );
+
+
+  document
+    .getElementById(
+      "logout-button"
+    )
+    .addEventListener(
+      "click",
+      logout
+    );
+
+
+  document
+    .getElementById(
+      "settings-button"
+    )
+    .addEventListener(
+      "click",
+      () => {
+
+        document
+          .getElementById(
+            "settings-panel"
+          )
+          .classList.toggle(
+            "hidden"
           );
-          showLogin();
-        }
-      }
 
-      init();
-    </script>
-  </body>
+      }
+    );
+
+
+  document
+    .getElementById(
+      "close-settings-button"
+    )
+    .addEventListener(
+      "click",
+      () => {
+
+        document
+          .getElementById(
+            "settings-panel"
+          )
+          .classList.add(
+            "hidden"
+          );
+
+      }
+    );
+
+
+  document
+    .getElementById(
+      "change-password-button"
+    )
+    .addEventListener(
+      "click",
+      changePassword
+    );
+
+
+  document
+    .getElementById(
+      "chat-form"
+    )
+    .addEventListener(
+      "submit",
+      event => {
+
+        event.preventDefault();
+
+        sendMessage();
+
+      }
+    );
+
+
+  document
+    .getElementById(
+      "message-input"
+    )
+    .addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key === "Enter"
+        ) {
+
+          event.preventDefault();
+
+          sendMessage();
+
+        }
+
+      }
+    );
+
+
+  initialize();
+</script>
+
+</body>
 </html>
