@@ -1,5 +1,5 @@
-const { MiahAI } = require('./ai');
-const { AnnGame } = require('./game');
+const { MiahAI } = require("./ai");
+const { AnnGame } = require("./game");
 
 class MiahBot {
   constructor({ db, ai, game }) {
@@ -9,7 +9,7 @@ class MiahBot {
       ai ||
       new MiahAI(
         process.env.HF_TOKEN,
-        process.env.HF_MODEL || 'openai/gpt-oss-20b:groq'
+        process.env.HF_MODEL || "openai/gpt-oss-20b:groq"
       );
 
     this.game = game || new AnnGame(db);
@@ -18,7 +18,7 @@ class MiahBot {
   async getConversation(sender, limit = 20) {
     if (
       !this.db ||
-      typeof this.db.getConversation !== 'function'
+      typeof this.db.getConversation !== "function"
     ) {
       return [];
     }
@@ -27,35 +27,39 @@ class MiahBot {
       await this.db.getConversation(sender, limit);
 
     return messages
+      .filter(
+        (message) =>
+          message &&
+          typeof message.text === "string" &&
+          message.text.trim()
+      )
       .map((message) => ({
         role:
-          message.role === 'assistant'
-            ? 'assistant'
-            : 'user',
-
-        content: String(message.text || ''),
-      }))
-      .filter((message) => message.content);
+          message.role === "assistant"
+            ? "assistant"
+            : "user",
+        content: message.text,
+      }));
   }
 
   async handleIncomingMessage(sender, message) {
-    const text = String(message || '').trim();
+    const text =
+      String(message || "").trim();
 
     if (!text) {
       return "I didn't receive a message.";
     }
 
-    const userId = String(sender || 'web-user');
+    const userId =
+      String(sender || "web-user");
 
-    const lower = text.toLowerCase();
-
-    // ----------------------------
-    // Game
-    // ----------------------------
+    // Keep the game functionality.
+    const lower =
+      text.toLowerCase();
 
     if (
-      lower === 'play' ||
-      lower.includes('start a game')
+      lower === "play" ||
+      lower === "start game"
     ) {
       const reply =
         await this.game.startGame(userId);
@@ -63,13 +67,13 @@ class MiahBot {
       await this.db.saveMessage(
         userId,
         text,
-        'user'
+        "user"
       );
 
       await this.db.saveMessage(
         userId,
         reply,
-        'assistant'
+        "assistant"
       );
 
       return reply;
@@ -85,51 +89,26 @@ class MiahBot {
       await this.db.saveMessage(
         userId,
         text,
-        'user'
+        "user"
       );
 
       await this.db.saveMessage(
         userId,
         reply,
-        'assistant'
+        "assistant"
       );
 
       return reply;
     }
 
-    // ----------------------------
-    // Time
-    // ----------------------------
-
+    // Remember something.
     if (
-      lower === 'time' ||
-      lower.includes('what time')
+      lower.startsWith("remember ")
     ) {
-      const reply =
-        `The current time is ${new Date().toLocaleTimeString()}.`;
-
-      await this.db.saveMessage(
-        userId,
-        text,
-        'user'
-      );
-
-      await this.db.saveMessage(
-        userId,
-        reply,
-        'assistant'
-      );
-
-      return reply;
-    }
-
-    // ----------------------------
-    // Memory
-    // ----------------------------
-
-    if (lower.startsWith('remember ')) {
       const note =
-        text.slice('remember '.length).trim();
+        text
+          .slice("remember ".length)
+          .trim();
 
       if (note) {
         await this.db.setMemory(
@@ -143,23 +122,24 @@ class MiahBot {
         await this.db.saveMessage(
           userId,
           text,
-          'user'
+          "user"
         );
 
         await this.db.saveMessage(
           userId,
           reply,
-          'assistant'
+          "assistant"
         );
 
         return reply;
       }
     }
 
+    // Retrieve saved note.
     if (
-      lower === 'what do you remember' ||
-      lower === 'show my memory' ||
-      lower === 'what do you remember about me'
+      lower === "what do you remember" ||
+      lower === "show my memory" ||
+      lower === "what do you remember about me"
     ) {
       const saved =
         await this.db.getMemory(
@@ -173,22 +153,20 @@ class MiahBot {
       await this.db.saveMessage(
         userId,
         text,
-        'user'
+        "user"
       );
 
       await this.db.saveMessage(
         userId,
         reply,
-        'assistant'
+        "assistant"
       );
 
       return reply;
     }
 
-    // ----------------------------
-    // Normal AI conversation
-    // ----------------------------
-
+    // Get previous conversation BEFORE
+    // saving the new user message.
     const context =
       await this.getConversation(
         userId,
@@ -204,16 +182,19 @@ class MiahBot {
     await this.db.saveMessage(
       userId,
       text,
-      'user'
+      "user"
     );
 
     await this.db.saveMessage(
       userId,
       reply,
-      'assistant'
+      "assistant"
     );
 
-    return reply;
+    return (
+      reply ||
+      "Miah is ready to chat."
+    );
   }
 }
 
