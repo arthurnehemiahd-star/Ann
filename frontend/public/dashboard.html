@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
@@ -49,7 +48,8 @@
     }
 
     button,
-    input {
+    input,
+    textarea {
       font: inherit;
     }
 
@@ -67,20 +67,16 @@
 
     .auth-screen {
       min-height: 100vh;
-
       display: flex;
       align-items: center;
       justify-content: center;
-
       padding: 24px;
     }
 
     .auth-card {
       width: 100%;
       max-width: 420px;
-
       padding: 32px;
-
       background: var(--sidebar);
       border: 1px solid var(--border);
       border-radius: 18px;
@@ -89,18 +85,13 @@
     .auth-logo {
       width: 56px;
       height: 56px;
-
       display: flex;
       align-items: center;
       justify-content: center;
-
       margin: 0 auto 18px;
-
       background: white;
       color: #171717;
-
       border-radius: 16px;
-
       font-size: 24px;
       font-weight: 800;
     }
@@ -113,9 +104,7 @@
 
     .auth-subtitle {
       margin: 8px 0 28px;
-
       text-align: center;
-
       color: var(--muted);
     }
 
@@ -126,18 +115,11 @@
 
     .auth-input {
       width: 100%;
-
       padding: 13px 14px;
-
       margin-top: 10px;
-
-      border:
-        1px solid var(--border);
-
+      border: 1px solid var(--border);
       border-radius: 10px;
-
       outline: none;
-
       background: #212121;
       color: var(--text);
     }
@@ -148,43 +130,29 @@
 
     .primary-btn {
       width: 100%;
-
       margin-top: 12px;
-
       padding: 13px;
-
       border: 0;
       border-radius: 10px;
-
       background: var(--white);
       color: #171717;
-
       font-weight: 700;
     }
 
     .secondary-btn {
       width: 100%;
-
       margin-top: 10px;
-
       padding: 13px;
-
-      border:
-        1px solid var(--border);
-
+      border: 1px solid var(--border);
       border-radius: 10px;
-
       background: transparent;
       color: var(--text);
     }
 
     .auth-message {
       min-height: 22px;
-
       margin-top: 12px;
-
       font-size: 14px;
-
       color: #fca5a5;
     }
 
@@ -195,9 +163,7 @@
     .app {
       width: 100%;
       height: 100vh;
-
       display: flex;
-
       overflow: hidden;
     }
 
@@ -208,14 +174,10 @@
     .sidebar {
       width: 260px;
       flex-shrink: 0;
-
       display: flex;
       flex-direction: column;
-
       background: var(--sidebar);
-
-      border-right:
-        1px solid var(--border);
+      border-right: 1px solid var(--border);
     }
 
     .sidebar-top {
@@ -224,21 +186,14 @@
 
     .new-chat-btn {
       width: 100%;
-
       display: flex;
       align-items: center;
       gap: 10px;
-
       padding: 11px 12px;
-
-      border:
-        1px solid var(--border);
-
+      border: 1px solid var(--border);
       border-radius: 10px;
-
       background: transparent;
       color: var(--text);
-
       text-align: left;
     }
 
@@ -248,25 +203,18 @@
 
     .sidebar-label {
       padding: 18px 14px 8px;
-
       color: #777;
-
       font-size: 11px;
       font-weight: 700;
-
       text-transform: uppercase;
       letter-spacing: .08em;
     }
 
     .sidebar-chat {
       margin: 0 8px;
-
       padding: 10px 12px;
-
       border-radius: 8px;
-
       color: var(--text);
-
       font-size: 14px;
     }
 
@@ -276,56 +224,43 @@
 
     .sidebar-bottom {
       margin-top: auto;
-
       padding: 10px;
-
-      border-top:
-        1px solid var(--border);
+      border-top: 1px solid var(--border);
     }
 
     .sidebar-user {
       display: flex;
       align-items: center;
       gap: 10px;
-
       padding: 9px 8px;
-
       border-radius: 10px;
     }
 
     .avatar {
       width: 32px;
       height: 32px;
-
       display: flex;
       align-items: center;
       justify-content: center;
-
       border-radius: 8px;
-
       background: white;
       color: #171717;
-
       font-weight: 800;
     }
 
     .sidebar-user-name {
       flex: 1;
-
       font-size: 14px;
     }
 
     .icon-btn {
       width: 34px;
       height: 34px;
-
       display: flex;
       align-items: center;
       justify-content: center;
-
       border: 0;
       border-radius: 8px;
-
       background: transparent;
       color: var(--muted);
     }
@@ -342,25 +277,18 @@
     .chat {
       min-width: 0;
       flex: 1;
-
       display: flex;
       flex-direction: column;
-
       background: var(--bg);
     }
 
     .chat-header {
       height: 58px;
       flex-shrink: 0;
-
       display: flex;
       align-items: center;
-
       padding: 0 18px;
-
-      border-bottom:
-        1px solid var(--border);
-
+      border-bottom: 1px solid var(--border);
       background: rgba(33, 33, 33, .92);
     }
 
@@ -371,19 +299,14 @@
 
     .messages {
       flex: 1;
-
       overflow-y: auto;
-
       scroll-behavior: smooth;
-
       padding: 24px 0 130px;
     }
 
     .message-row {
       width: 100%;
-
       display: flex;
-
       padding: 7px 20px;
     }
 
@@ -397,11 +320,8 @@
 
     .message-inner {
       width: min(820px, 100%);
-
       display: flex;
-
       gap: 12px;
-
       align-items: flex-start;
     }
 
@@ -413,15 +333,11 @@
     .message-avatar {
       width: 32px;
       height: 32px;
-
       flex-shrink: 0;
-
       display: flex;
       align-items: center;
       justify-content: center;
-
       border-radius: 8px;
-
       font-size: 13px;
       font-weight: 800;
     }
@@ -433,25 +349,20 @@
 
     .message-row.user .message-avatar {
       order: 2;
-
       background: #4b5563;
       color: white;
     }
 
     .message-content {
       min-width: 0;
-
       padding-top: 5px;
-
       line-height: 1.65;
-
       word-wrap: break-word;
       overflow-wrap: anywhere;
     }
 
     .message-name {
       margin-bottom: 4px;
-
       font-size: 12px;
       font-weight: 700;
     }
@@ -462,9 +373,7 @@
 
     .user-bubble {
       padding: 10px 14px;
-
       border-radius: 18px;
-
       background: #2f2f2f;
     }
 
@@ -474,52 +383,41 @@
 
     .welcome {
       min-height: 65vh;
-
       display: flex;
       align-items: center;
       justify-content: center;
-
       padding: 40px 20px;
     }
 
     .welcome-inner {
       width: 100%;
       max-width: 760px;
-
       text-align: center;
     }
 
     .welcome-logo {
       width: 64px;
       height: 64px;
-
       display: flex;
       align-items: center;
       justify-content: center;
-
       margin: 0 auto 22px;
-
       background: white;
       color: #171717;
-
       border-radius: 18px;
-
       font-size: 28px;
       font-weight: 800;
     }
 
     .welcome h1 {
       margin: 0 0 10px;
-
       font-size: 34px;
       letter-spacing: -.03em;
     }
 
     .welcome p {
       margin: 0;
-
       color: var(--muted);
-
       line-height: 1.6;
     }
 
@@ -529,65 +427,41 @@
 
     .composer-area {
       position: fixed;
-
       left: 260px;
       right: 0;
       bottom: 0;
-
       z-index: 10;
-
-      padding:
-        12px 20px 18px;
-
-      background:
-        linear-gradient(
-          to bottom,
-          rgba(33, 33, 33, 0),
-          var(--bg) 28%
-        );
+      padding: 12px 20px 18px;
+      background: linear-gradient(
+        to bottom,
+        rgba(33, 33, 33, 0),
+        var(--bg) 28%
+      );
     }
 
     .composer {
       width: min(820px, 100%);
-
       margin: 0 auto;
-
       display: flex;
       align-items: flex-end;
-
       gap: 10px;
-
       padding: 10px;
-
-      border:
-        1px solid var(--border);
-
+      border: 1px solid var(--border);
       border-radius: 18px;
-
       background: #2f2f2f;
-
-      box-shadow:
-        0 8px 30px rgba(0, 0, 0, .28);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, .28);
     }
 
     .message-input {
       flex: 1;
-
       min-height: 44px;
       max-height: 160px;
-
       resize: none;
-
       border: 0;
       outline: 0;
-
       background: transparent;
-
       color: var(--text);
-
-      padding:
-        11px 8px;
-
+      padding: 11px 8px;
       line-height: 1.5;
     }
 
@@ -598,19 +472,14 @@
     .send-btn {
       width: 40px;
       height: 40px;
-
       flex-shrink: 0;
-
       display: flex;
       align-items: center;
       justify-content: center;
-
       border: 0;
       border-radius: 12px;
-
       background: white;
       color: #171717;
-
       font-size: 17px;
       font-weight: 800;
     }
@@ -622,11 +491,8 @@
 
     .composer-note {
       margin-top: 7px;
-
       text-align: center;
-
       color: #707070;
-
       font-size: 11px;
     }
 
@@ -637,20 +503,15 @@
     .typing-dots {
       display: inline-flex;
       gap: 4px;
-
       padding-top: 5px;
     }
 
     .typing-dots span {
       width: 6px;
       height: 6px;
-
       border-radius: 50%;
-
       background: #a0a0a0;
-
-      animation:
-        typing 1.2s infinite ease-in-out;
+      animation: typing 1.2s infinite ease-in-out;
     }
 
     .typing-dots span:nth-child(2) {
@@ -681,25 +542,15 @@
 
     .settings-panel {
       position: fixed;
-
       left: 270px;
       bottom: 70px;
-
       z-index: 50;
-
       width: 290px;
-
       padding: 16px;
-
-      border:
-        1px solid var(--border);
-
+      border: 1px solid var(--border);
       border-radius: 14px;
-
       background: #171717;
-
-      box-shadow:
-        0 20px 60px rgba(0,0,0,.45);
+      box-shadow: 0 20px 60px rgba(0,0,0,.45);
     }
 
     .settings-panel h3 {
@@ -708,18 +559,11 @@
 
     .settings-button {
       width: 100%;
-
       padding: 10px;
-
       margin-top: 8px;
-
-      border:
-        1px solid var(--border);
-
+      border: 1px solid var(--border);
       border-radius: 9px;
-
       background: transparent;
-
       color: var(--text);
     }
 
@@ -734,7 +578,6 @@
 
       .composer-area {
         left: 0;
-
         padding-left: 10px;
         padding-right: 10px;
       }
@@ -762,10 +605,7 @@
        SETUP
   =========================================== -->
 
-  <section
-    id="setup-screen"
-    class="auth-screen hidden"
-  >
+  <section id="setup-screen" class="auth-screen hidden">
     <div class="auth-card">
 
       <div class="auth-logo">M</div>
@@ -805,10 +645,7 @@
        LOGIN
   =========================================== -->
 
-  <section
-    id="login-screen"
-    class="auth-screen hidden"
-  >
+  <section id="login-screen" class="auth-screen hidden">
     <div class="auth-card">
 
       <div class="auth-logo">M</div>
@@ -853,10 +690,7 @@
        PASSWORD RECOVERY
   =========================================== -->
 
-  <section
-    id="recovery-screen"
-    class="auth-screen hidden"
-  >
+  <section id="recovery-screen" class="auth-screen hidden">
     <div class="auth-card">
 
       <div class="auth-logo">M</div>
@@ -922,12 +756,7 @@
        APP
   =========================================== -->
 
-  <section
-    id="app-screen"
-    class="app hidden"
-  >
-
-    <!-- Sidebar -->
+  <section id="app-screen" class="app hidden">
 
     <aside class="sidebar">
 
@@ -981,8 +810,6 @@
     </aside>
 
 
-    <!-- Chat -->
-
     <main class="chat">
 
       <header class="chat-header">
@@ -992,15 +819,9 @@
       </header>
 
 
-      <div
-        id="messages"
-        class="messages"
-      >
+      <div id="messages" class="messages">
 
-        <div
-          id="welcome"
-          class="welcome"
-        >
+        <div id="welcome" class="welcome">
 
           <div class="welcome-inner">
 
@@ -1013,9 +834,9 @@
             </h1>
 
             <p>
-              I'm Miah. Ask me anything, explain
-              something you're working on, or just
-              start a conversation.
+              I'm Miah. Ask me anything,
+              explain something you're working on,
+              or just start a conversation.
             </p>
 
           </div>
@@ -1027,10 +848,7 @@
 
       <div class="composer-area">
 
-        <form
-          id="chat-form"
-          class="composer"
-        >
+        <form id="chat-form" class="composer">
 
           <textarea
             id="message-input"
@@ -1066,10 +884,7 @@
        SETTINGS
   =========================================== -->
 
-  <div
-    id="settings-panel"
-    class="settings-panel hidden"
-  >
+  <div id="settings-panel" class="settings-panel hidden">
 
     <h3>Settings</h3>
 
@@ -1097,1318 +912,498 @@
   </div>
 
 
-<script>
-  /* =========================================
-     CONFIGURATION
-  ========================================= */
+  <script>
+    /* =========================================
+       CONFIGURATION
+    ========================================= */
 
-  const API_BASE_URL =
-    window.location.hostname === "localhost" ||
-    window.location.hostname === "127.0.0.1"
-      ? "http://localhost:3000"
-      : "https://kenzi.onrender.com";
+    const API_BASE_URL =
+      window.location.hostname === "localhost" ||
+      window.location.hostname === "127.0.0.1"
+        ? "http://localhost:3000"
+        : "https://kenzi.onrender.com";
 
-
-  const PASSWORD_KEY =
-    "miah_password";
-
-  const USER_ID_KEY =
-    "miah_user_id";
+    const PASSWORD_KEY = "miah_password";
+    const USER_ID_KEY = "miah_user_id";
 
 
-  /* =========================================
-     ELEMENTS
-  ========================================= */
+    /* =========================================
+       ELEMENTS
+    ========================================= */
 
-  const setupScreen =
-    document.getElementById(
-      "setup-screen"
-    );
+    const setupScreen =
+      document.getElementById("setup-screen");
 
-  const loginScreen =
-    document.getElementById(
-      "login-screen"
-    );
+    const loginScreen =
+      document.getElementById("login-screen");
 
-  const recoveryScreen =
-    document.getElementById(
-      "recovery-screen"
-    );
+    const recoveryScreen =
+      document.getElementById("recovery-screen");
 
-  const appScreen =
-    document.getElementById(
-      "app-screen"
-    );
+    const appScreen =
+      document.getElementById("app-screen");
 
-  const messages =
-    document.getElementById(
-      "messages"
-    );
+    const messages =
+      document.getElementById("messages");
 
-  const messageInput =
-    document.getElementById(
-      "message-input"
-    );
+    const messageInput =
+      document.getElementById("message-input");
 
-  const sendButton =
-    document.getElementById(
-      "send-button"
-    );
+    const sendButton =
+      document.getElementById("send-button");
 
 
-  /* =========================================
-     AUTH HELPERS
-  ========================================= */
+    /* =========================================
+       AUTH HELPERS
+    ========================================= */
 
-  function getPassword() {
-    return localStorage.getItem(
-      PASSWORD_KEY
-    );
-  }
-
-
-  function savePassword(password) {
-    localStorage.setItem(
-      PASSWORD_KEY,
-      password
-    );
-  }
-
-
-  function clearPassword() {
-    localStorage.removeItem(
-      PASSWORD_KEY
-    );
-  }
-
-
-  function getUserId() {
-
-    let userId =
-      localStorage.getItem(
-        USER_ID_KEY
-      );
-
-    if (!userId) {
-
-      userId =
-        "web-" +
-        crypto.randomUUID();
-
-      localStorage.setItem(
-        USER_ID_KEY,
-        userId
-      );
+    function getPassword() {
+      return localStorage.getItem(PASSWORD_KEY);
     }
 
-    return userId;
-  }
-
-
-  function getAuthHeader(password) {
-
-    return (
-      "Basic " +
-      btoa(":" + password)
-    );
-  }
-
-
-  function showScreen(id) {
-
-    [
-      setupScreen,
-      loginScreen,
-      recoveryScreen,
-      appScreen
-    ].forEach(
-      element =>
-        element.classList.add(
-          "hidden"
-        )
-    );
-
-    document
-      .getElementById(id)
-      .classList.remove(
-        "hidden"
-      );
-  }
-
-
-  function setMessage(
-    id,
-    text
-  ) {
-
-    document
-      .getElementById(id)
-      .textContent =
-      text || "";
-  }
-
-
-  /* =========================================
-     API
-  ========================================= */
-
-  async function getAuthStatus() {
-
-    const response =
-      await fetch(
-        `${API_BASE_URL}/api/auth-status`
-      );
-
-    if (!response.ok) {
-      throw new Error(
-        "Miah backend is unavailable."
-      );
+    function savePassword(password) {
+      localStorage.setItem(PASSWORD_KEY, password);
     }
 
-    return response.json();
-  }
-
-
-  /* =========================================
-     PASSWORD SETUP
-  ========================================= */
-
-  async function setupPassword() {
-
-    const password =
-      document
-        .getElementById(
-          "setup-password"
-        )
-        .value
-        .trim();
-
-    if (!password) {
-
-      setMessage(
-        "setup-message",
-        "Enter a password."
-      );
-
-      return;
+    function clearPassword() {
+      localStorage.removeItem(PASSWORD_KEY);
     }
 
+    function getUserId() {
+      let userId =
+        localStorage.getItem(USER_ID_KEY);
 
-    try {
+      if (!userId) {
+        userId =
+          "web-" + crypto.randomUUID();
 
-      const response =
-        await fetch(
-          `${API_BASE_URL}/api/setup-password`,
-          {
-            method: "POST",
-
-            headers: {
-              "Content-Type":
-                "application/json"
-            },
-
-            body:
-              JSON.stringify({
-                password
-              })
-          }
-        );
-
-
-      const data =
-        await response.json();
-
-
-      if (!response.ok) {
-        throw new Error(
-          data.error ||
-          "Could not set the password."
+        localStorage.setItem(
+          USER_ID_KEY,
+          userId
         );
       }
 
-
-      savePassword(password);
-
-      document
-        .getElementById(
-          "setup-password"
-        )
-        .value = "";
-
-
-      showScreen(
-        "app-screen"
-      );
-
-
-    } catch (error) {
-
-      setMessage(
-        "setup-message",
-        error.message
-      );
-
+      return userId;
     }
-  }
 
+    function getAuthHeader(password) {
+      return "Basic " + btoa(":" + password);
+    }
 
-  /* =========================================
-     LOGIN
-  ========================================= */
+    function showScreen(id) {
+      [
+        setupScreen,
+        loginScreen,
+        recoveryScreen,
+        appScreen
+      ].forEach(element => {
+        element.classList.add("hidden");
+      });
 
-  async function login() {
-
-    const password =
       document
-        .getElementById(
-          "login-password"
-        )
-        .value
-        .trim();
+        .getElementById(id)
+        .classList.remove("hidden");
+    }
 
-    if (!password) {
-
-      setMessage(
-        "login-message",
-        "Enter your password."
-      );
-
-      return;
+    function setMessage(id, text) {
+      document
+        .getElementById(id)
+        .textContent = text || "";
     }
 
 
-    try {
+    /* =========================================
+       API
+    ========================================= */
 
+    async function getAuthStatus() {
       const response =
         await fetch(
-          `${API_BASE_URL}/api/dashboard`,
-          {
-            headers: {
-              Authorization:
-                getAuthHeader(
+          `${API_BASE_URL}/api/auth-status`
+        );
+
+      if (!response.ok) {
+        throw new Error(
+          "Miah backend is unavailable."
+        );
+      }
+
+      return response.json();
+    }
+
+
+    /* =========================================
+       PASSWORD SETUP
+    ========================================= */
+
+    async function setupPassword() {
+      const password =
+        document
+          .getElementById("setup-password")
+          .value
+          .trim();
+
+      if (!password) {
+        setMessage(
+          "setup-message",
+          "Enter a password."
+        );
+
+        return;
+      }
+
+      try {
+        const response =
+          await fetch(
+            `${API_BASE_URL}/api/setup-password`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type":
+                  "application/json"
+              },
+              body:
+                JSON.stringify({
                   password
-                )
+                })
             }
-          }
-        );
+          );
 
+        const data =
+          await response.json();
 
-      if (!response.ok) {
-        throw new Error(
-          "Incorrect password."
+        if (!response.ok) {
+          throw new Error(
+            data.error ||
+            "Could not set the password."
+          );
+        }
+
+        savePassword(password);
+
+        document
+          .getElementById("setup-password")
+          .value = "";
+
+        showScreen("app-screen");
+
+      } catch (error) {
+        setMessage(
+          "setup-message",
+          error.message
         );
       }
-
-
-      savePassword(password);
-
-      document
-        .getElementById(
-          "login-password"
-        )
-        .value = "";
-
-
-      showScreen(
-        "app-screen"
-      );
-
-
-      messageInput.focus();
-
-
-    } catch (error) {
-
-      setMessage(
-        "login-message",
-        error.message
-      );
-
-    }
-  }
-
-
-  /* =========================================
-     LOGOUT
-  ========================================= */
-
-  function logout() {
-
-    clearPassword();
-
-    messages.innerHTML = "";
-
-    addWelcome();
-
-    closeSettings();
-
-    showScreen(
-      "login-screen"
-    );
-  }
-
-
-  /* =========================================
-     WELCOME
-  ========================================= */
-
-  function addWelcome() {
-
-    messages.innerHTML = `
-      <div
-        id="welcome"
-        class="welcome"
-      >
-        <div class="welcome-inner">
-
-          <div class="welcome-logo">
-            M
-          </div>
-
-          <h1>
-            How can I help you?
-          </h1>
-
-          <p>
-            I'm Miah. Ask me anything,
-            explain something you're working on,
-            or just start a conversation.
-          </p>
-
-        </div>
-      </div>
-    `;
-  }
-
-
-  /* =========================================
-     MESSAGE RENDERING
-  ========================================= */
-
-  function addMessage(
-    role,
-    text
-  ) {
-
-    const welcome =
-      document.getElementById(
-        "welcome"
-      );
-
-    if (welcome) {
-      welcome.remove();
     }
 
 
-    const row =
-      document.createElement(
-        "div"
-      );
-
-    row.className =
-      `message-row ${role}`;
-
-
-    const inner =
-      document.createElement(
-        "div"
-      );
-
-    inner.className =
-      "message-inner";
-
-
-    const avatar =
-      document.createElement(
-        "div"
-      );
-
-    avatar.className =
-      "message-avatar";
-
-    avatar.textContent =
-      role === "assistant"
-        ? "M"
-        : "Y";
-
-
-    const content =
-      document.createElement(
-        "div"
-      );
-
-    content.className =
-      "message-content";
-
-
-    const name =
-      document.createElement(
-        "div"
-      );
-
-    name.className =
-      "message-name";
-
-    name.textContent =
-      role === "assistant"
-        ? "Miah"
-        : "You";
-
-
-    const body =
-      document.createElement(
-        "div"
-      );
-
-    body.className =
-      role === "user"
-        ? "message-text user-bubble"
-        : "message-text";
-
-    body.textContent =
-      text;
-
-
-    content.appendChild(name);
-    content.appendChild(body);
-
-    inner.appendChild(avatar);
-    inner.appendChild(content);
-
-    row.appendChild(inner);
-
-    messages.appendChild(row);
-
-
-    messages.scrollTop =
-      messages.scrollHeight;
-  }
-
-
-  function addTyping() {
-
-    const welcome =
-      document.getElementById(
-        "welcome"
-      );
-
-    if (welcome) {
-      welcome.remove();
-    }
-
-
-    const row =
-      document.createElement(
-        "div"
-      );
-
-    row.id =
-      "typing-message";
-
-    row.className =
-      "message-row assistant";
-
-
-    const inner =
-      document.createElement(
-        "div"
-      );
-
-    inner.className =
-      "message-inner";
-
-
-    const avatar =
-      document.createElement(
-        "div"
-      );
-
-    avatar.className =
-      "message-avatar";
-
-    avatar.textContent =
-      "M";
-
-
-    const content =
-      document.createElement(
-        "div"
-      );
-
-    content.className =
-      "message-content";
-
-
-    const name =
-      document.createElement(
-        "div"
-      );
-
-    name.className =
-      "message-name";
-
-    name.textContent =
-      "Miah";
-
-
-    const dots =
-      document.createElement(
-        "div"
-      );
-
-    dots.className =
-      "typing-dots";
-
-
-    dots.innerHTML =
-      "<span></span><span></span><span></span>";
-
-
-    content.appendChild(name);
-    content.appendChild(dots);
-
-    inner.appendChild(avatar);
-    inner.appendChild(content);
-
-    row.appendChild(inner);
-
-    messages.appendChild(row);
-
-
-    messages.scrollTop =
-      messages.scrollHeight;
-  }
-
-
-  function removeTyping() {
-
-    const typing =
-      document.getElementById(
-        "typing-message"
-      );
-
-    if (typing) {
-      typing.remove();
-    }
-  }
-
-
-  /* =========================================
-     SEND MESSAGE
-  ========================================= */
-
-  async function sendMessage() {
-
-    const text =
-      messageInput.value.trim();
-
-    if (!text) {
-      return;
-    }
-
-
-    const password =
-      getPassword();
-
-
-    if (!password) {
-
-      logout();
-
-      return;
-    }
-
-
-    addMessage(
-      "user",
-      text
-    );
-
-
-    messageInput.value = "";
-
-    resizeInput();
-
-    sendButton.disabled =
-      true;
-
-
-    addTyping();
-
-
-    try {
-
-      const response =
-        await fetch(
-          `${API_BASE_URL}/api/chat`,
-          {
-            method: "POST",
-
-            headers: {
-              "Content-Type":
-                "application/json",
-
-              Authorization:
-                getAuthHeader(
-                  password
-                ),
-
-              "X-User-Id":
-                getUserId()
-            },
-
-            body:
-              JSON.stringify({
-                message: text
-              })
-          }
-        );
-
-
-      const data =
-        await response.json();
-
-
-      removeTyping();
-
-
-      if (
-        response.status === 401
-      ) {
-
-        clearPassword();
-
-        showScreen(
-          "login-screen"
-        );
-
+    /* =========================================
+       LOGIN
+    ========================================= */
+
+    async function login() {
+      const password =
+        document
+          .getElementById("login-password")
+          .value
+          .trim();
+
+      if (!password) {
         setMessage(
           "login-message",
-          "Your session has expired."
+          "Enter your password."
         );
 
         return;
       }
 
-
-      if (!response.ok) {
-        throw new Error(
-          data.error ||
-          "Miah couldn't process the message."
-        );
-      }
-
-
-      addMessage(
-        "assistant",
-        data.reply ||
-        "I didn't receive a response."
-      );
-
-
-    } catch (error) {
-
-      removeTyping();
-
-      addMessage(
-        "assistant",
-        error.message
-      );
-
-    } finally {
-
-      sendButton.disabled =
-        false;
-
-      messageInput.focus();
-
-    }
-  }
-
-
-  /* =========================================
-     TEXTAREA
-  ========================================= */
-
-  function resizeInput() {
-
-    messageInput.style.height =
-      "auto";
-
-    messageInput.style.height =
-      Math.min(
-        messageInput.scrollHeight,
-        160
-      ) + "px";
-  }
-
-
-  messageInput.addEventListener(
-    "input",
-    resizeInput
-  );
-
-
-  messageInput.addEventListener(
-    "keydown",
-    event => {
-
-      if (
-        event.key === "Enter" &&
-        !event.shiftKey
-      ) {
-
-        event.preventDefault();
-
-        document
-          .getElementById(
-            "chat-form"
-          )
-          .requestSubmit();
-
-      }
-
-    }
-  );
-
-
-  /* =========================================
-     NEW CHAT
-  ========================================= */
-
-  function newChat() {
-
-    addWelcome();
-
-    messageInput.value = "";
-
-    resizeInput();
-
-    messageInput.focus();
-  }
-
-
-  /* =========================================
-     RECOVERY
-  ========================================= */
-
-  function openRecovery() {
-
-    showScreen(
-      "recovery-screen"
-    );
-
-    setMessage(
-      "recovery-message",
-      ""
-    );
-  }
-
-
-  async function sendRecoveryCode() {
-
-    const email =
-      document
-        .getElementById(
-          "recovery-email"
-        )
-        .value
-        .trim();
-
-
-    if (!email) {
-
-      setMessage(
-        "recovery-message",
-        "Enter your admin Gmail address."
-      );
-
-      return;
-    }
-
-
-    try {
-
-      const response =
-        await fetch(
-          `${API_BASE_URL}/api/request-reset`,
-          {
-            method: "POST",
-
-            headers: {
-              "Content-Type":
-                "application/json"
-            },
-
-            body:
-              JSON.stringify({
-                email
-              })
-          }
-        );
-
-
-      const data =
-        await response.json();
-
-
-      if (!response.ok) {
-        throw new Error(
-          data.error ||
-          "Could not send the code."
-        );
-      }
-
-
-      document
-        .getElementById(
-          "recovery-code"
-        )
-        .classList.remove(
-          "hidden"
-        );
-
-
-      document
-        .getElementById(
-          "recovery-new-password"
-        )
-        .classList.remove(
-          "hidden"
-        );
-
-
-      document
-        .getElementById(
-          "reset-password-button"
-        )
-        .classList.remove(
-          "hidden"
-        );
-
-
-      setMessage(
-        "recovery-message",
-        "Verification code sent."
-      );
-
-
-    } catch (error) {
-
-      setMessage(
-        "recovery-message",
-        error.message
-      );
-
-    }
-  }
-
-
-  async function resetPassword() {
-
-    const email =
-      document
-        .getElementById(
-          "recovery-email"
-        )
-        .value
-        .trim();
-
-    const code =
-      document
-        .getElementById(
-          "recovery-code"
-        )
-        .value
-        .trim();
-
-    const newPassword =
-      document
-        .getElementById(
-          "recovery-new-password"
-        )
-        .value
-        .trim();
-
-
-    try {
-
-      const response =
-        await fetch(
-          `${API_BASE_URL}/api/reset-password`,
-          {
-            method: "POST",
-
-            headers: {
-              "Content-Type":
-                "application/json"
-            },
-
-            body:
-              JSON.stringify({
-                email,
-                code,
-                newPassword
-              })
-          }
-        );
-
-
-      const data =
-        await response.json();
-
-
-      if (!response.ok) {
-        throw new Error(
-          data.error ||
-          "Password reset failed."
-        );
-      }
-
-
-      savePassword(
-        newPassword
-      );
-
-
-      showScreen(
-        "app-screen"
-      );
-
-
-    } catch (error) {
-
-      setMessage(
-        "recovery-message",
-        error.message
-      );
-
-    }
-  }
-
-
-  /* =========================================
-     SETTINGS
-  ========================================= */
-
-  function closeSettings() {
-
-    document
-      .getElementById(
-        "settings-panel"
-      )
-      .classList.add(
-        "hidden"
-      );
-  }
-
-
-  document
-    .getElementById(
-      "settings-button"
-    )
-    .addEventListener(
-      "click",
-      () => {
-
-        document
-          .getElementById(
-            "settings-panel"
-          )
-          .classList.toggle(
-            "hidden"
-          );
-
-      }
-    );
-
-
-  document
-    .getElementById(
-      "close-settings-button"
-    )
-    .addEventListener(
-      "click",
-      closeSettings
-    );
-
-
-  document
-    .getElementById(
-      "logout-button"
-    )
-    .addEventListener(
-      "click",
-      logout
-    );
-
-
-  document
-    .getElementById(
-      "change-password-button"
-    )
-    .addEventListener(
-      async () => {
-
-        const current =
-          prompt(
-            "Enter your current password:"
-          );
-
-        if (!current) {
-          return;
-        }
-
-        const next =
-          prompt(
-            "Enter your new password:"
-          );
-
-        if (!next) {
-          return;
-        }
-
-
-        try {
-
-          const response =
-            await fetch(
-              `${API_BASE_URL}/api/change-password`,
-              {
-                method: "POST",
-
-                headers: {
-                  "Content-Type":
-                    "application/json",
-
-                  Authorization:
-                    getAuthHeader(
-                      current
-                    )
-                },
-
-                body:
-                  JSON.stringify({
-                    currentPassword:
-                      current,
-
-                    newPassword:
-                      next
-                  })
+      try {
+        const response =
+          await fetch(
+            `${API_BASE_URL}/api/dashboard`,
+            {
+              headers: {
+                Authorization:
+                  getAuthHeader(password)
               }
-            );
-
-
-          const data =
-            await response.json();
-
-
-          if (!response.ok) {
-            throw new Error(
-              data.error ||
-              "Could not change password."
-            );
-          }
-
-
-          savePassword(next);
-
-          alert(
-            "Password changed successfully."
+            }
           );
 
-          closeSettings();
-
-
-        } catch (error) {
-
-          alert(
-            error.message
+        if (!response.ok) {
+          throw new Error(
+            "Incorrect password."
           );
-
         }
 
+        savePassword(password);
+
+        document
+          .getElementById("login-password")
+          .value = "";
+
+        showScreen("app-screen");
+
+        messageInput.focus();
+
+      } catch (error) {
+        setMessage(
+          "login-message",
+          error.message
+        );
       }
-    );
+    }
 
 
-  /* =========================================
-     BUTTON EVENTS
-  ========================================= */
+    /* =========================================
+       LOGOUT
+    ========================================= */
 
-  document
-    .getElementById(
-      "setup-button"
-    )
-    .addEventListener(
-      "click",
-      setupPassword
-    );
+    function logout() {
+      clearPassword();
 
+      messages.innerHTML = "";
 
-  document
-    .getElementById(
-      "login-button"
-    )
-    .addEventListener(
-      "click",
-      login
-    );
+      addWelcome();
+
+      closeSettings();
+
+      showScreen("login-screen");
+    }
 
 
-  document
-    .getElementById(
-      "forgot-password-button"
-    )
-    .addEventListener(
-      "click",
-      openRecovery
-    );
+    /* =========================================
+       WELCOME
+    ========================================= */
+
+    function addWelcome() {
+      messages.innerHTML = `
+        <div
+          id="welcome"
+          class="welcome"
+        >
+          <div class="welcome-inner">
+
+            <div class="welcome-logo">
+              M
+            </div>
+
+            <h1>
+              How can I help you?
+            </h1>
+
+            <p>
+              I'm Miah. Ask me anything,
+              explain something you're working on,
+              or just start a conversation.
+            </p>
+
+          </div>
+        </div>
+      `;
+    }
 
 
-  document
-    .getElementById(
-      "send-code-button"
-    )
-    .addEventListener(
-      "click",
-      sendRecoveryCode
-    );
+    /* =========================================
+       MESSAGE RENDERING
+    ========================================= */
 
+    function addMessage(role, text) {
+      const welcome =
+        document.getElementById("welcome");
 
-  document
-    .getElementById(
-      "reset-password-button"
-    )
-    .addEventListener(
-      "click",
-      resetPassword
-    );
-
-
-  document
-    .getElementById(
-      "back-to-login-button"
-    )
-    .addEventListener(
-      "click",
-      () =>
-        showScreen(
-          "login-screen"
-        )
-    );
-
-
-  document
-    .getElementById(
-      "new-chat-button"
-    )
-    .addEventListener(
-      "click",
-      newChat
-    );
-
-
-  document
-    .getElementById(
-      "chat-form"
-    )
-    .addEventListener(
-      "submit",
-      event => {
-
-        event.preventDefault();
-
-        sendMessage();
-
+      if (welcome) {
+        welcome.remove();
       }
-    );
+
+      const row =
+        document.createElement("div");
+
+      row.className =
+        `message-row ${role}`;
+
+      const inner =
+        document.createElement("div");
+
+      inner.className =
+        "message-inner";
+
+      const avatar =
+        document.createElement("div");
+
+      avatar.className =
+        "message-avatar";
+
+      avatar.textContent =
+        role === "assistant"
+          ? "M"
+          : "Y";
+
+      const content =
+        document.createElement("div");
+
+      content.className =
+        "message-content";
+
+      const name =
+        document.createElement("div");
+
+      name.className =
+        "message-name";
+
+      name.textContent =
+        role === "assistant"
+          ? "Miah"
+          : "You";
+
+      const body =
+        document.createElement("div");
+
+      body.className =
+        role === "user"
+          ? "message-text user-bubble"
+          : "message-text";
+
+      body.textContent = text;
+
+      content.appendChild(name);
+      content.appendChild(body);
+
+      inner.appendChild(avatar);
+      inner.appendChild(content);
+
+      row.appendChild(inner);
+
+      messages.appendChild(row);
+
+      messages.scrollTop =
+        messages.scrollHeight;
+    }
 
 
-  /* =========================================
-     INITIALIZE
-  ========================================= */
+    function addTyping() {
+      const welcome =
+        document.getElementById("welcome");
 
-  async function initialize() {
+      if (welcome) {
+        welcome.remove();
+      }
 
-    try {
+      const row =
+        document.createElement("div");
 
-      const status =
-        await getAuthStatus();
+      row.id =
+        "typing-message";
+
+      row.className =
+        "message-row assistant";
+
+      const inner =
+        document.createElement("div");
+
+      inner.className =
+        "message-inner";
+
+      const avatar =
+        document.createElement("div");
+
+      avatar.className =
+        "message-avatar";
+
+      avatar.textContent = "M";
+
+      const content =
+        document.createElement("div");
+
+      content.className =
+        "message-content";
+
+      const name =
+        document.createElement("div");
+
+      name.className =
+        "message-name";
+
+      name.textContent = "Miah";
+
+      const dots =
+        document.createElement("div");
+
+      dots.className =
+        "typing-dots";
+
+      dots.innerHTML =
+        "<span></span><span></span><span></span>";
+
+      content.appendChild(name);
+      content.appendChild(dots);
+
+      inner.appendChild(avatar);
+      inner.appendChild(content);
+
+      row.appendChild(inner);
+
+      messages.appendChild(row);
+
+      messages.scrollTop =
+        messages.scrollHeight;
+    }
 
 
-      const savedPassword =
+    function removeTyping() {
+      const typing =
+        document.getElementById(
+          "typing-message"
+        );
+
+      if (typing) {
+        typing.remove();
+      }
+    }
+
+
+    /* =========================================
+       SEND MESSAGE
+    ========================================= */
+
+    async function sendMessage() {
+      const text =
+        messageInput.value.trim();
+
+      if (!text) {
+        return;
+      }
+
+      const password =
         getPassword();
 
-
-      if (
-        !status.configured
-      ) {
-
-        showScreen(
-          "setup-screen"
-        );
-
+      if (!password) {
+        logout();
         return;
       }
 
-
-      if (savedPassword) {
-
-        try {
-
-          const check =
-            await fetch(
-              `${API_BASE_URL}/api/dashboard`,
-              {
-                headers: {
-                  Authorization:
-                    getAuthHeader(
-                      savedPassword
-                    )
-                }
-              }
-            );
-
-
-          if (check.ok) {
-
-            showScreen(
-              "app-screen"
-            );
-
-            messageInput.focus();
-
-            return;
-          }
-
-        } catch {
-          // Go to login.
-        }
-      }
-
-
-      showScreen(
-        "login-screen"
+      addMessage(
+        "user",
+        text
       );
 
+      messageInput.value = "";
 
-    } catch (error) {
+      resizeInput();
 
-      showScreen(
-        "login-screen"
-      );
+      sendButton.disabled = true;
 
-      setMessage(
-        "login-message",
-        error.message
-      );
-    }
-  }
+      addTyping();
 
+      try {
+        const response =
+          await fetch(
+            `${API_BASE_URL}/api/chat`,
+            {
+              method: "POST",
 
-  initialize();
-</script>
+              headers: {
+                "Content-Type":
+                  "application/json",
 
-</body>
-</html>
+                Authorization:
+                  getAuthHeader(
+                    password
